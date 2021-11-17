@@ -1,0 +1,13 @@
+#pragma once
+
+#include <QString>
+#include <QDate>
+
+struct SubSeasonModel {
+    int id;
+    QString reference;
+    QString libelle;
+    int pmsSaisonId;
+    QDate dateDebut;
+    QDate dateFin;
+};

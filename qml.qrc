@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>UI/View/SplashView.qml</file>
+        <file>UI/View/SplashViewForm.ui.qml</file>
+        <file>UI/View/OrderView.qml</file>
+        <file>UI/View/OrderViewForm.ui.qml</file>
+        <file>UI/ViewCell/RoomCell.qml</file>
+        <file>UI/Component/MatNumKeys.qml</file>
+        <file>UI/Component/MatDatePicker.qml</file>
+        <file>UI/Component/MatTextField.qml</file>
+        <file>Assets/Image/splash.png</file>
+        <file>UI/View/LoginView.qml</file>
+        <file>UI/View/LoginViewForm.ui.qml</file>
+        <file>UI/View/SignupView.qml</file>
+        <file>UI/View/SignupViewForm.ui.qml</file>
+        <file>Assets/Db/mmc.prod.db3</file>
+        <file>UI/Component/MatComboBox.qml</file>
+        <file>UI/Script/Countries.js</file>
+        <file>UIGlobalProperty.qml</file>
+        <file>qmldir</file>
+        <file>UI/View/CodeConfirmationView.qml</file>
+        <file>UI/View/CodeConfirmationViewForm.ui.qml</file>
+        <file>UI/View/PosActivitiesView.qml</file>
+        <file>UI/View/PosActivitiesViewForm.ui.qml</file>
+        <file>UI/View/PlanningRecepView.qml</file>
+        <file>UI/View/PlanningRecepViewForm.ui.qml</file>
+    </qresource>
+</RCC>
