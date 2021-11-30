@@ -73,8 +73,8 @@ void BaseService::handleResult(HttpUtil *httpUtil)
     QByteArray response = httpUtil->response;
      status = httpUtil->httpStatusCode;
 #ifdef QT_DEBUG
-    qDebug() << "Http request result: " << elapsedTime << " milliseconds - " << response.size() << " bytes" ;
-    qDebug() << qPrintable(response);
+    //qDebug() << "Http request result: " << elapsedTime << " milliseconds - " << response.size() << " bytes" ;
+    //qDebug() << qPrintable(response);
 #endif
     callback(endpoint, response, status);
 }

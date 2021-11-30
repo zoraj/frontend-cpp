@@ -29,11 +29,11 @@ void SplashViewController::viewDidLoad()
         qInfo() << "Current user" << ApplicationManager::getInstance()->getAppContext()->user->firstname;
     }
     else {
-        auto signupViewController = new SignupViewController();
-        ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_signupViewController", signupViewController);
+        const int moduleId = 2;// POS = 0; RECEP = 1, RESA = 2, HOUSEKEEPING = 3, COLLECTIVITE = 4
+        auto module = static_cast<Constant::Module>(moduleId);
 
-        auto codeConfirmationViewController = new CodeConfirmationViewController();
-        ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_codeConfirmationViewController", codeConfirmationViewController);
+        auto viewControllerManager = new ViewControllerManager();
+        viewControllerManager->initControllers(module);
     }
 
     auto signinViewController = new SigninViewController();

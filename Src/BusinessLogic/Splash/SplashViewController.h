@@ -1,9 +1,8 @@
 #pragma once
 
 #include "Src/Application/Base/BaseViewController.h"
+#include "Src/Application/Manager/ViewControllerManager.h"
 #include "Src/Application/Manager/ApplicationManager.h"
-#include "Src/BusinessLogic/Signup/SignupViewController.h"
-#include "Src/BusinessLogic/Device/CodeConfirmationViewController.h"
 #include "Src/BusinessLogic/User/SigninViewController.h"
 
 class SplashViewController : public BaseViewController

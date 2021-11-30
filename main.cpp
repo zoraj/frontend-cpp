@@ -8,8 +8,8 @@
 #include <QQuickStyle>
 #include <QIcon>
 
-#include "Src/Application/ApplicationManager.h"
-#include "Src/Splash/SplashViewController.h"
+#include "Src/Application/Manager/ApplicationManager.h"
+#include "Src/BusinessLogic/Splash/SplashViewController.h"
 
 /*! Log redirection
  * @param
@@ -45,17 +45,29 @@ void messageOutput(QtMsgType type, const QMessageLogContext &context, const QStr
     outFile.close();
 }
 
+/**
+ * @brief registerQmlType
+ * Some of our model classes need to be accessible from views.
+ *
+ */
+void registerQmlType()
+{
+    //qmlRegisterType<BookingModel>("cloud.multimicro.mmc.frontend", 1, 0, "BookingModel");
+    //qmlRegisterType<StayModel>("cloud.multimicro.mmc.frontend", 1, 0, "StayModel");
+    qmlRegisterType<OrderModel>("cloud.multimicro.mmc.frontend", 1, 0, "OrderModel");
+    qmlRegisterType<OrderDetailModel>("cloud.multimicro.mmc.frontend", 1, 0, "OrderDetailModel");
+}
+
 int main(int argc, char *argv[])
 {
-    //qInfo() << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString();
+    qInfo() << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString();
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
+    QGuiApplication::setApplicationName("MAT Frontend");
+    QGuiApplication::setOrganizationName("FNP Technologies");
     QGuiApplication app(argc, argv);
-
-    QIcon::setThemeName("gallery");
-    QQuickStyle::setStyle("Material");
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
@@ -68,8 +80,10 @@ int main(int argc, char *argv[])
     }
 
     QQmlApplicationEngine engine;
+    QIcon::setThemeName("gallery");
+    QQuickStyle::setStyle("Material");
 
-    // This is the first thing to do when we have an instance of rootContect from engine,
+    // This is the first thing to do when we have an instance of rootContext from engine,
     // so we could easily set context property for our view controllers
     ApplicationManager::getInstance()->getAppContext()->uiContext = engine.rootContext();
 
@@ -77,6 +91,9 @@ int main(int argc, char *argv[])
 
     auto splashViewController = new SplashViewController();
     ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_splashViewController", splashViewController);
+
+    // Register models structures
+    registerQmlType();
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

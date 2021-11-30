@@ -7,23 +7,36 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        Src/Application/Manager/ViewControllerManager.cpp \
         Src/BusinessLogic/Activities/ActivitiesViewController.cpp \
         Src/Application/Manager/ApplicationManager.cpp \
         Src/Application/Base/BaseService.cpp \
         Src/Application/Base/BaseViewController.cpp \
+        Src/BusinessLogic/Activities/ActivityListModel.cpp \
         Src/BusinessLogic/Activities/ActivityService.cpp \
+        Src/BusinessLogic/CashingMode/CashingModeListModel.cpp \
         Src/BusinessLogic/CashingMode/CashingModeService.cpp \
+        Src/BusinessLogic/Client/ClientListModel.cpp \
         Src/BusinessLogic/Client/ClientService.cpp \
         Src/BusinessLogic/Device/CodeConfirmationViewController.cpp \
         Src/BusinessLogic/Device/DeviceService.cpp \
         Src/BusinessLogic/Family/FamilyService.cpp \
+        Src/BusinessLogic/Order/OrderDetailListModel.cpp \
+        Src/BusinessLogic/Order/OrderListModel.cpp \
+        Src/BusinessLogic/Order/OrderService.cpp \
         Src/BusinessLogic/Order/OrderViewController.cpp \
+        Src/BusinessLogic/OrderCheckout/OrderCheckoutListModel.cpp \
         Src/BusinessLogic/OrderCheckout/OrderCheckoutViewController.cpp \
+        Src/BusinessLogic/Product/PosGroupProductListModel.cpp \
+        Src/BusinessLogic/Product/PosProductListModel.cpp \
         Src/BusinessLogic/Product/ProductService.cpp \
         Src/BusinessLogic/Room/RoomService.cpp \
         Src/BusinessLogic/Season/SeasonService.cpp \
         Src/BusinessLogic/Segmentation/SegmentationService.cpp \
         Src/BusinessLogic/Setting/SettingService.cpp \
+        Src/BusinessLogic/Table/TablePlanListModel.cpp \
+        Src/BusinessLogic/TopUp/AccompanimentListModel.cpp \
+        Src/BusinessLogic/TopUp/CookingListModel.cpp \
         Src/BusinessLogic/TopUp/TopUpService.cpp \
         Src/BusinessLogic/User/SigninViewController.cpp \
         Src/BusinessLogic/Signup/SignupViewController.cpp \
@@ -54,20 +67,24 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    Src/Application/Manager/ViewControllerManager.h \
     Src/BusinessLogic/Activities/ActivitiesViewController.h \
     Src/Application/Manager/ApplicationManager.h \
     Src/Application/Base/BaseService.h \
     Src/Application/Base/BaseViewController.h \
     Src/BusinessLogic/Activities/ActivityBuilder.h \
     Src/BusinessLogic/Activities/ActivityCache.h \
+    Src/BusinessLogic/Activities/ActivityListModel.h \
     Src/BusinessLogic/Activities/ActivityModel.h \
     Src/BusinessLogic/Activities/ActivityService.h \
     Src/BusinessLogic/CashingMode/CashingModeBuilder.h \
     Src/BusinessLogic/CashingMode/CashingModeCache.h \
+    Src/BusinessLogic/CashingMode/CashingModeListModel.h \
     Src/BusinessLogic/CashingMode/CashingModeModel.h \
     Src/BusinessLogic/CashingMode/CashingModeService.h \
     Src/BusinessLogic/Client/ClientBuilder.h \
     Src/BusinessLogic/Client/ClientCache.h \
+    Src/BusinessLogic/Client/ClientListModel.h \
     Src/BusinessLogic/Client/ClientModel.h \
     Src/BusinessLogic/Client/ClientService.h \
     Src/BusinessLogic/Device/CodeConfirmationViewController.h \
@@ -81,13 +98,24 @@ HEADERS += \
     Src/BusinessLogic/Family/SubFamilyBuilder.h \
     Src/BusinessLogic/Family/SubFamilyCache.h \
     Src/BusinessLogic/Family/SubFamilyModel.h \
+    Src/BusinessLogic/Order/OrderBuilder.h \
+    Src/BusinessLogic/Order/OrderCache.h \
+    Src/BusinessLogic/Order/OrderDetailListModel.h \
+    Src/BusinessLogic/Order/OrderListModel.h \
+    Src/BusinessLogic/Order/OrderModel.h \
+    Src/BusinessLogic/Order/OrderService.h \
     Src/BusinessLogic/Order/OrderViewController.h \
+    Src/BusinessLogic/OrderCheckout/OrderCheckoutCache.h \
+    Src/BusinessLogic/OrderCheckout/OrderCheckoutListModel.h \
+    Src/BusinessLogic/OrderCheckout/OrderCheckoutModel.h \
     Src/BusinessLogic/OrderCheckout/OrderCheckoutViewController.h \
     Src/BusinessLogic/Product/PosGroupProductBuilder.h \
     Src/BusinessLogic/Product/PosGroupProductCache.h \
+    Src/BusinessLogic/Product/PosGroupProductListModel.h \
     Src/BusinessLogic/Product/PosGroupProductModel.h \
     Src/BusinessLogic/Product/PosProductBuilder.h \
     Src/BusinessLogic/Product/PosProductCache.h \
+    Src/BusinessLogic/Product/PosProductListModel.h \
     Src/BusinessLogic/Product/PosProductModel.h \
     Src/BusinessLogic/Product/ProductService.h \
     Src/BusinessLogic/Room/RoomBuilder.h \
@@ -121,10 +149,14 @@ HEADERS += \
     Src/BusinessLogic/Setting/SettingCache.h \
     Src/BusinessLogic/Setting/SettingModel.h \
     Src/BusinessLogic/Setting/SettingService.h \
+    Src/BusinessLogic/Table/TableModel.h \
+    Src/BusinessLogic/Table/TablePlanListModel.h \
     Src/BusinessLogic/TopUp/AccompanimentBuilder.h \
     Src/BusinessLogic/TopUp/AccompanimentCache.h \
+    Src/BusinessLogic/TopUp/AccompanimentListModel.h \
     Src/BusinessLogic/TopUp/CookingBuilder.h \
     Src/BusinessLogic/TopUp/CookingCache.h \
+    Src/BusinessLogic/TopUp/CookingListModel.h \
     Src/BusinessLogic/TopUp/TopUpModel.h \
     Src/BusinessLogic/TopUp/TopUpService.h \
     Src/BusinessLogic/User/SigninViewController.h \

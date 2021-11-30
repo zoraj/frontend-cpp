@@ -51,11 +51,13 @@
 #include "Src/BusinessLogic/Room/RoomTypeCache.h"
 #include "Src/BusinessLogic/Room/RoomBuilder.h"
 #include "Src/BusinessLogic/Room/RoomCache.h"
+#include "Src/BusinessLogic/Activities/ActivitiesViewController.h"
 
 class SigninViewController : public BaseViewController
 {
     Q_OBJECT
     void fetchRemoteDataThenCache(Constant::Module module);
+    void registerControllers(Constant::Module module);
 public:
     SigninViewController(QObject *parent = nullptr);
 signals:

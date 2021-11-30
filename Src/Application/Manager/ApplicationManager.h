@@ -29,7 +29,7 @@ struct ApplicationContext
     QTimer *timer;
     UserModel *user = nullptr;
     bool isCacheNeedToReload = true;
-    //int currentActivity = Constant::UNDEFINED_INT;
+    int currentActivity = Constant::UNDEFINED_INT;
     QString currentPOSService = "M"; // M: MIDI, S: SOIR
     QThread *cacheThread;
     QVector<int> ordersPool; // It will store <orderId> . Needed for the cloud syncing

@@ -215,6 +215,12 @@ void SigninViewController::fetchRemoteDataThenCache(Constant::Module module)
 
 }
 
+void SigninViewController::registerControllers(Constant::Module module)
+{
+    auto activitiesViewController = new ActivitiesViewController();
+    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_activitiesViewController",activitiesViewController);
+}
+
 SigninViewController::SigninViewController(QObject *parent) : BaseViewController(parent)
 {
 
@@ -251,6 +257,7 @@ void SigninViewController::validatePinCodeTriggered(const QString& pinCode)
             const int moduleId = 2;// POS = 0; RECEP = 1, RESA = 2, HOUSEKEEPING = 3, COLLECTIVITE = 4
             auto module = static_cast<Constant::Module>(moduleId);
             fetchRemoteDataThenCache(module);
+            registerControllers(module);
 
         }
         emit validatePinCodeTriggeredFinished(status == Constant::HttpStatusCode::OK, 0);
