@@ -4,21 +4,21 @@
 #include <QJsonParseError>
 #include <QJsonArray>
 
-#include "TopUpModel.h"
+#include "TopUp.h"
 
-namespace Builder::Cooking {
-    static CookingModel create(const QJsonObject &json)
+namespace builder::cooking {
+    static Cooking create(const QJsonObject &json)
     {
-        CookingModel  output;
+        Cooking  output;
         output.id = json["id"].toInt();
         output.code = json["code"].toString();
         output.libelle = json["libelle"].toString();
         return output;
     }
 
-    static QList<CookingModel > create(const QByteArray &input)
+    static QList<Cooking > create(const QByteArray &input)
     {
-        QList<CookingModel > result;
+        QList<Cooking > result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -26,7 +26,7 @@ namespace Builder::Cooking {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                CookingModel item = create(jsonObject);
+                Cooking item = create(jsonObject);
                 result.append(item);
             }
         }

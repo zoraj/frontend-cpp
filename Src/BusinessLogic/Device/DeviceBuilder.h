@@ -5,11 +5,11 @@
 #include <QJsonArray>
 #include <QDebug>
 
-#include "Src/BusinessLogic/Device/DeviceModel.h"
+#include "Src/BusinessLogic/Device/Device.h"
 
-namespace DeviceBuilder {
-    static DeviceModel create(const QByteArray &json) {
-        DeviceModel device;
+namespace builder::device {
+    static Device create(const QByteArray &json) {
+        Device device;
         QJsonParseError error;
 
         QJsonDocument jsonDoc= QJsonDocument::fromJson(json, &error);

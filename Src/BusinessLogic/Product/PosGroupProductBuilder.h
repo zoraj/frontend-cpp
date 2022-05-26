@@ -3,12 +3,12 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "PosGroupProductModel.h"
+#include "PosGroupProduct.h"
 
-namespace Builder::PosGroupProduct {
-    static PosGroupProductModel create(const QJsonObject &json)
+namespace builder::pos_group_product {
+    static PosGroupProduct create(const QJsonObject &json)
     {
-        PosGroupProductModel output;
+        PosGroupProduct output;
         output.id = json["id"].toInt();
         output.code = json["code"].toString();
         output.libelle = json["libelle"].toString();
@@ -16,9 +16,9 @@ namespace Builder::PosGroupProduct {
         return output;
     };
 
-    static QList<PosGroupProductModel> create(const QByteArray &input)
+    static QList<PosGroupProduct> create(const QByteArray &input)
     {
-        QList<PosGroupProductModel> result;
+        QList<PosGroupProduct> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -26,7 +26,7 @@ namespace Builder::PosGroupProduct {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                PosGroupProductModel item = create(jsonObject);
+                PosGroupProduct item = create(jsonObject);
                 result.append(item);
             }
         }

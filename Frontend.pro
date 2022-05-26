@@ -14,6 +14,9 @@ SOURCES += \
         Src/Application/Base/BaseViewController.cpp \
         Src/BusinessLogic/Activities/ActivityListModel.cpp \
         Src/BusinessLogic/Activities/ActivityService.cpp \
+        Src/BusinessLogic/Booking/BookingDetailViewController.cpp \
+        Src/BusinessLogic/Booking/BookingRoomListModel.cpp \
+        Src/BusinessLogic/Booking/BookingService.cpp \
         Src/BusinessLogic/CashingMode/CashingModeListModel.cpp \
         Src/BusinessLogic/CashingMode/CashingModeService.cpp \
         Src/BusinessLogic/Client/ClientListModel.cpp \
@@ -27,11 +30,20 @@ SOURCES += \
         Src/BusinessLogic/Order/OrderViewController.cpp \
         Src/BusinessLogic/OrderCheckout/OrderCheckoutListModel.cpp \
         Src/BusinessLogic/OrderCheckout/OrderCheckoutViewController.cpp \
+        Src/BusinessLogic/Planning/BookingPlanningViewController.cpp \
+        Src/BusinessLogic/Planning/PlanningDateListModel.cpp \
         Src/BusinessLogic/Product/PosGroupProductListModel.cpp \
         Src/BusinessLogic/Product/PosProductListModel.cpp \
         Src/BusinessLogic/Product/ProductService.cpp \
+        Src/BusinessLogic/Rate/RateGridListModel.cpp \
+        Src/BusinessLogic/Rate/RateGridService.cpp \
+        Src/BusinessLogic/Room/RoomListModel.cpp \
         Src/BusinessLogic/Room/RoomService.cpp \
+        Src/BusinessLogic/Room/RoomTypeListModel.cpp \
         Src/BusinessLogic/Season/SeasonService.cpp \
+        Src/BusinessLogic/Segmentation/ClientTypeListModel.cpp \
+        Src/BusinessLogic/Segmentation/PrescripteurListModel.cpp \
+        Src/BusinessLogic/Segmentation/SegmentationListModel.cpp \
         Src/BusinessLogic/Segmentation/SegmentationService.cpp \
         Src/BusinessLogic/Setting/SettingService.cpp \
         Src/BusinessLogic/Table/TablePlanListModel.cpp \
@@ -72,84 +84,104 @@ HEADERS += \
     Src/Application/Manager/ApplicationManager.h \
     Src/Application/Base/BaseService.h \
     Src/Application/Base/BaseViewController.h \
+    Src/BusinessLogic/Activities/Activity.h \
     Src/BusinessLogic/Activities/ActivityBuilder.h \
     Src/BusinessLogic/Activities/ActivityCache.h \
     Src/BusinessLogic/Activities/ActivityListModel.h \
-    Src/BusinessLogic/Activities/ActivityModel.h \
     Src/BusinessLogic/Activities/ActivityService.h \
+    Src/BusinessLogic/Booking/Booking.h \
+    Src/BusinessLogic/Booking/BookingBuilder.h \
+    Src/BusinessLogic/Booking/BookingDetailViewController.h \
+    Src/BusinessLogic/Booking/BookingRoomBuilder.h \
+    Src/BusinessLogic/Booking/BookingRoomListModel.h \
+    Src/BusinessLogic/Booking/BookingService.h \
+    Src/BusinessLogic/CashingMode/CashingMode.h \
     Src/BusinessLogic/CashingMode/CashingModeBuilder.h \
     Src/BusinessLogic/CashingMode/CashingModeCache.h \
     Src/BusinessLogic/CashingMode/CashingModeListModel.h \
-    Src/BusinessLogic/CashingMode/CashingModeModel.h \
     Src/BusinessLogic/CashingMode/CashingModeService.h \
+    Src/BusinessLogic/Client/Client.h \
     Src/BusinessLogic/Client/ClientBuilder.h \
     Src/BusinessLogic/Client/ClientCache.h \
     Src/BusinessLogic/Client/ClientListModel.h \
-    Src/BusinessLogic/Client/ClientModel.h \
     Src/BusinessLogic/Client/ClientService.h \
     Src/BusinessLogic/Device/CodeConfirmationViewController.h \
+    Src/BusinessLogic/Device/Device.h \
     Src/BusinessLogic/Device/DeviceBuilder.h \
-    Src/BusinessLogic/Device/DeviceModel.h \
     Src/BusinessLogic/Device/DeviceService.h \
+    Src/BusinessLogic/Family/Family.h \
     Src/BusinessLogic/Family/FamilyBuilder.h \
     Src/BusinessLogic/Family/FamilyCache.h \
-    Src/BusinessLogic/Family/FamilyModel.h \
     Src/BusinessLogic/Family/FamilyService.h \
     Src/BusinessLogic/Family/SubFamilyBuilder.h \
     Src/BusinessLogic/Family/SubFamilyCache.h \
     Src/BusinessLogic/Family/SubFamilyModel.h \
+    Src/BusinessLogic/Order/Order.h \
     Src/BusinessLogic/Order/OrderBuilder.h \
     Src/BusinessLogic/Order/OrderCache.h \
     Src/BusinessLogic/Order/OrderDetailListModel.h \
     Src/BusinessLogic/Order/OrderListModel.h \
-    Src/BusinessLogic/Order/OrderModel.h \
     Src/BusinessLogic/Order/OrderService.h \
     Src/BusinessLogic/Order/OrderViewController.h \
+    Src/BusinessLogic/OrderCheckout/OrderCheckout.h \
     Src/BusinessLogic/OrderCheckout/OrderCheckoutCache.h \
     Src/BusinessLogic/OrderCheckout/OrderCheckoutListModel.h \
-    Src/BusinessLogic/OrderCheckout/OrderCheckoutModel.h \
     Src/BusinessLogic/OrderCheckout/OrderCheckoutViewController.h \
+    Src/BusinessLogic/Planning/BookingPlanningViewController.h \
+    Src/BusinessLogic/Planning/PlanningDate.h \
+    Src/BusinessLogic/Planning/PlanningDateListModel.h \
+    Src/BusinessLogic/Product/PosGroupProduct.h \
     Src/BusinessLogic/Product/PosGroupProductBuilder.h \
     Src/BusinessLogic/Product/PosGroupProductCache.h \
     Src/BusinessLogic/Product/PosGroupProductListModel.h \
-    Src/BusinessLogic/Product/PosGroupProductModel.h \
+    Src/BusinessLogic/Product/PosProduct.h \
     Src/BusinessLogic/Product/PosProductBuilder.h \
     Src/BusinessLogic/Product/PosProductCache.h \
     Src/BusinessLogic/Product/PosProductListModel.h \
-    Src/BusinessLogic/Product/PosProductModel.h \
     Src/BusinessLogic/Product/ProductService.h \
+    Src/BusinessLogic/Rate/RateGrid.h \
+    Src/BusinessLogic/Rate/RateGridBuilder.h \
+    Src/BusinessLogic/Rate/RateGridCache.h \
+    Src/BusinessLogic/Rate/RateGridListModel.h \
+    Src/BusinessLogic/Rate/RateGridService.h \
+    Src/BusinessLogic/Room/Room.h \
     Src/BusinessLogic/Room/RoomBuilder.h \
     Src/BusinessLogic/Room/RoomCache.h \
     Src/BusinessLogic/Room/RoomCategoryBuilder.h \
     Src/BusinessLogic/Room/RoomCategoryCache.h \
     Src/BusinessLogic/Room/RoomCategoryModel.h \
-    Src/BusinessLogic/Room/RoomModel.h \
+    Src/BusinessLogic/Room/RoomListModel.h \
+    Src/BusinessLogic/Room/RoomRepartitionBuilder.h \
     Src/BusinessLogic/Room/RoomService.h \
+    Src/BusinessLogic/Room/RoomType.h \
     Src/BusinessLogic/Room/RoomTypeBuilder.h \
     Src/BusinessLogic/Room/RoomTypeCache.h \
-    Src/BusinessLogic/Room/RoomTypeModel.h \
+    Src/BusinessLogic/Room/RoomTypeListModel.h \
+    Src/BusinessLogic/Season/Season.h \
     Src/BusinessLogic/Season/SeasonBuilder.h \
     Src/BusinessLogic/Season/SeasonCache.h \
-    Src/BusinessLogic/Season/SeasonModel.h \
     Src/BusinessLogic/Season/SeasonService.h \
+    Src/BusinessLogic/Season/SubSeason.h \
     Src/BusinessLogic/Season/SubSeasonBuilder.h \
     Src/BusinessLogic/Season/SubSeasonCache.h \
-    Src/BusinessLogic/Season/SubSeasonModel.h \
+    Src/BusinessLogic/Segmentation/ClientType.h \
     Src/BusinessLogic/Segmentation/ClientTypeBuilder.h \
     Src/BusinessLogic/Segmentation/ClientTypeCache.h \
-    Src/BusinessLogic/Segmentation/ClientTypeModel.h \
+    Src/BusinessLogic/Segmentation/ClientTypeListModel.h \
+    Src/BusinessLogic/Segmentation/Prescripteur.h \
     Src/BusinessLogic/Segmentation/PrescripteurBuilder.h \
     Src/BusinessLogic/Segmentation/PrescripteurCache.h \
-    Src/BusinessLogic/Segmentation/PrescripteurModel.h \
+    Src/BusinessLogic/Segmentation/PrescripteurListModel.h \
+    Src/BusinessLogic/Segmentation/Segmentation.h \
     Src/BusinessLogic/Segmentation/SegmentationBuilder.h \
     Src/BusinessLogic/Segmentation/SegmentationCache.h \
-    Src/BusinessLogic/Segmentation/SegmentationModel.h \
+    Src/BusinessLogic/Segmentation/SegmentationListModel.h \
     Src/BusinessLogic/Segmentation/SegmentationService.h \
+    Src/BusinessLogic/Setting/Setting.h \
     Src/BusinessLogic/Setting/SettingBuilder.h \
     Src/BusinessLogic/Setting/SettingCache.h \
-    Src/BusinessLogic/Setting/SettingModel.h \
     Src/BusinessLogic/Setting/SettingService.h \
-    Src/BusinessLogic/Table/TableModel.h \
+    Src/BusinessLogic/Table/Table.h \
     Src/BusinessLogic/Table/TablePlanListModel.h \
     Src/BusinessLogic/TopUp/AccompanimentBuilder.h \
     Src/BusinessLogic/TopUp/AccompanimentCache.h \
@@ -157,20 +189,20 @@ HEADERS += \
     Src/BusinessLogic/TopUp/CookingBuilder.h \
     Src/BusinessLogic/TopUp/CookingCache.h \
     Src/BusinessLogic/TopUp/CookingListModel.h \
-    Src/BusinessLogic/TopUp/TopUpModel.h \
+    Src/BusinessLogic/TopUp/TopUp.h \
     Src/BusinessLogic/TopUp/TopUpService.h \
     Src/BusinessLogic/User/SigninViewController.h \
     Src/BusinessLogic/Signup/SignupViewController.h \
     Src/BusinessLogic/Splash/SplashViewController.h \
+    Src/BusinessLogic/User/User.h \
     Src/BusinessLogic/User/UserBuilder.h \
-    Src/BusinessLogic/User/UserModel.h \
     Src/BusinessLogic/User/UserService.h \
     Src/Application/Util/Constant.h \
     Src/Application/Util/HttpRequest.h \
     Src/Application/Util/HttpUtil.h \
+    Src/BusinessLogic/VatService/Vat.h \
     Src/BusinessLogic/VatService/VatBuilder.h \
     Src/BusinessLogic/VatService/VatCache.h \
-    Src/BusinessLogic/VatService/VatModel.h \
     Src/BusinessLogic/VatService/VatServiceService.h
 
 DISTFILES += \

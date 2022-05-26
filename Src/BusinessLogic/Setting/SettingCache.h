@@ -6,13 +6,13 @@
 #include <QtSql/QSqlError>
 #include <QDebug>
 
-#include "SettingModel.h"
+#include "Setting.h"
 
 
-namespace Cache::Setting {
-    static SettingModel get(const QString &key)
+namespace cache::setting {
+    static Setting get(const QString &key)
     {
-        SettingModel setting;
+        Setting setting;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_mmc_parametrage WHERE cle =:cle");
         q.bindValue(":cle", key);
@@ -36,7 +36,7 @@ namespace Cache::Setting {
         return setting;
     }
 
-    static void persist(const SettingModel &data)
+    static void persist(const Setting &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_mmc_parametrage(cle,valeur) VALUES (:cle, :valeur)");
@@ -47,12 +47,12 @@ namespace Cache::Setting {
         }
     }
 
-    static void persist(QList<SettingModel> settings, bool resetBefore)
+    static void persist(QList<Setting> settings, bool resetBefore)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         if (resetBefore) {
-            foreach(const SettingModel &setting, settings) {
+            foreach(const Setting &setting, settings) {
                 q.prepare("DELETE FROM t_mmc_parametrage WHERE cle=:cle");
                 q.bindValue(":cle", setting.cle);
                 if (!q.exec()) {
@@ -60,7 +60,7 @@ namespace Cache::Setting {
                 }
             }
         }
-        foreach(const SettingModel &setting, settings) {
+        foreach(const Setting &setting, settings) {
             persist(setting);
         }
         QSqlDatabase::database().commit();

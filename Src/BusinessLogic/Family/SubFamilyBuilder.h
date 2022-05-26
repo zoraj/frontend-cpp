@@ -5,7 +5,7 @@
 #include <QJsonArray>
 #include "SubFamilyModel.h"
 
-namespace Builder::SubFamily {
+namespace builder::sub_family {
     static SubFamilyModel create(const QJsonObject &json)
     {
         SubFamilyModel output;

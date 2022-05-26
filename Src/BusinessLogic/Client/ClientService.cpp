@@ -7,8 +7,8 @@ ClientService::ClientService(const QString &apiKey, const QString &token): BaseS
 
 void ClientService::fetchClients()
 {
-    endpoint = Constant::WSEndpoint::CLIENTS;
-    HttpRequest req {fullPath(Constant::WS_CLIENTS),
+    endpoint = constant::WSEndpoint::CLIENTS;
+    HttpRequest req {fullPath(constant::WS_CLIENTS),
         "GET",
         nullptr,
         apiKey,
@@ -17,10 +17,10 @@ void ClientService::fetchClients()
     executeRequest(req);
 }
 
-void ClientService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void ClientService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     switch (endpoint) {
-        case Constant::WSEndpoint::CLIENTS:
+        case constant::WSEndpoint::CLIENTS:
             emit fetchClientsFinished(response, status);
             break;
     }

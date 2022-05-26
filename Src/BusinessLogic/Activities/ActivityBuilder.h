@@ -3,12 +3,12 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "ActivityModel.h"
+#include "Activity.h"
 
-namespace Builder::Activity {
-    static ActivityModel create(const QJsonObject &json)
+namespace builder::activity {
+    static Activity create(const QJsonObject &json)
     {
-        ActivityModel output;
+        Activity output;
         output.id = json["id"].toInt();
         output.code = json["code"].toString();
         output.libelle = json["libelle"].toString();
@@ -20,9 +20,9 @@ namespace Builder::Activity {
         return output;
     }
 
-    static QList<ActivityModel> create(const QByteArray &input)
+    static QList<Activity> create(const QByteArray &input)
     {
-        QList<ActivityModel> result;
+        QList<Activity> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -30,7 +30,7 @@ namespace Builder::Activity {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                ActivityModel item = create(jsonObject);
+                Activity item = create(jsonObject);
                 result.append(item);
             }
         }

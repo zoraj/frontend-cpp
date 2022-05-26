@@ -5,7 +5,7 @@
 #include <QJsonArray>
 #include "RoomCategoryModel.h"
 
-namespace Builder::RoomCategory {
+namespace builder::room_category {
     static RoomCategoryModel create(const QJsonObject &json)
     {
         RoomCategoryModel output;

@@ -5,19 +5,23 @@
 #include "Src/BusinessLogic/Device/CodeConfirmationViewController.h"
 #include "Src/BusinessLogic/Order/OrderViewController.h"
 #include "Src/BusinessLogic/OrderCheckout/OrderCheckoutViewController.h"
+#include "Src/BusinessLogic/Booking/BookingDetailViewController.h"
+#include "Src/BusinessLogic/Planning/BookingPlanningViewController.h"
 
 
 class ViewControllerManager : public QObject
 {
     Q_OBJECT
-    SignupViewController *signupViewController;
-    CodeConfirmationViewController *codeConfirmationViewController;
-    OrderViewController *orderViewController;
-    OrderCheckoutViewController *orderCheckoutViewController;
+    SignupViewController *signupViewController_;
+    CodeConfirmationViewController *codeConfirmationViewController_;
+    OrderViewController *orderViewController_;
+    OrderCheckoutViewController *orderCheckoutViewController_;
+    BookingDetailViewController *bookingDetailViewController_;
+    BookingPlanningViewController *bookingPlanningViewController_;
 public:
     explicit ViewControllerManager(QObject *parent = nullptr);
 
-    void initControllers(Constant::Module module);
+    void initControllers(constant::Module module);
     void releaseControllers(int module);
 
 signals:

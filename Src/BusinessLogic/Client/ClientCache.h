@@ -4,13 +4,13 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "ClientModel.h"
+#include "Client.h"
 
-namespace Cache::Client {
+namespace cache::client {
 
-    static QList<ClientModel> getAll()
+    static QList<Client> getAll()
     {
-        QList<ClientModel> list;
+        QList<Client> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_mmc_client ORDER BY nom");
         if (q.exec()) {
@@ -18,7 +18,7 @@ namespace Cache::Client {
             int code = q.record().indexOf("code");
             int nom = q.record().indexOf("nom");
             while (q.next()) {
-                ClientModel data;
+                Client data;
                 data.id = q.value(id).toInt();
                 data.code = q.value(code).toString();
                 data.nom = q.value(nom).toString();
@@ -31,7 +31,7 @@ namespace Cache::Client {
         return list;
     }
 
-    static void persist(const ClientModel &data)
+    static void persist(const Client &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_mmc_client(id, code, nom, prenom, adresse, ville, pays, pms_prescripteur_id, mmc_type_client_id, mmc_segment_client_id) "
@@ -52,13 +52,13 @@ namespace Cache::Client {
         }
     }
 
-    static void persist(QList<ClientModel> data)
+    static void persist(QList<Client> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_mmc_client");
         if (q.exec()) {
-            foreach(const ClientModel &item, data) {
+            foreach(const Client &item, data) {
                 persist(item);
             }
 

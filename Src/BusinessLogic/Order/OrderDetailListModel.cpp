@@ -22,7 +22,7 @@ QVariant OrderDetailListModel::data(const QModelIndex &index, int role) const
     if (index.row() > list.size() -1)
         return QVariant();
 
-    OrderDetailModel *item = list.at(index.row());
+    OrderDetail *item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;
@@ -32,8 +32,6 @@ QVariant OrderDetailListModel::data(const QModelIndex &index, int role) const
         return QVariant::fromValue(item->prestationId);
     case PRESTATION_LIBELLE_ROLE:
         return QVariant::fromValue(item->prestationLibelle);
-    case PRIX_ROLE:
-        return QVariant::fromValue(item->prix);
     case QTE_ROLE:
         return QVariant::fromValue(item->qte);
     case IS_VAE_ROLE:
@@ -64,7 +62,6 @@ QHash<int, QByteArray> OrderDetailListModel::roleNames() const
     roles.insert(ID_ROLE, QByteArray("_id"));
     roles.insert(PRESTATION_ID_ROLE, QByteArray("prestationId"));
     roles.insert(PRESTATION_LIBELLE_ROLE, QByteArray("prestationLibelle"));
-    roles.insert(PRIX_ROLE, QByteArray("prix"));
     roles.insert(QTE_ROLE, QByteArray("qte"));
     roles.insert(IS_VAE_ROLE, QByteArray("isVAE"));
     roles.insert(IS_OFFERT_ROLE, QByteArray("isOffert"));
@@ -73,7 +70,7 @@ QHash<int, QByteArray> OrderDetailListModel::roleNames() const
     return roles;
 }
 
-void OrderDetailListModel::setList(const QList<OrderDetailModel *> list)
+void OrderDetailListModel::setList(const QList<OrderDetail *> list)
 {
     this->list = list;
     beginResetModel();

@@ -4,12 +4,12 @@
 #include <QtSql/QSqlError>
 #include <QSqlRecord>
 #include <QDebug>
-#include "RoomTypeModel.h"
+#include "RoomType.h"
 
-namespace Cache::RoomType {
-    static QList<RoomTypeModel> getAll()
+namespace cache::room_type {
+    static QList<RoomType *> getAll()
     {
-        QList<RoomTypeModel> list;
+        QList<RoomType *> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pms_type_chambre ORDER BY libelle");
         if (q.exec()) {
@@ -20,13 +20,13 @@ namespace Cache::RoomType {
             int persMin = q.record().indexOf("pers_min");
             int nbEnfant = q.record().indexOf("nb_enfant");
             while (q.next()) {
-                RoomTypeModel data;
-                data.id = q.value(id).toInt();
-                data.libelle = q.value(libelle).toString();
-                data.reference = q.value(reference).toInt();
-                data.persMax = q.value(persMax).toInt();
-                data.persMin = q.value(persMin).toInt();
-                data.nbEnfant = q.value(nbEnfant).toInt();
+                RoomType *data = new RoomType();
+                data->id = q.value(id).toInt();
+                data->libelle = q.value(libelle).toString();
+                data->reference = q.value(reference).toInt();
+                data->persMax = q.value(persMax).toInt();
+                data->persMin = q.value(persMin).toInt();
+                data->nbEnfant = q.value(nbEnfant).toInt();
                 list.append(data);
              }
         }
@@ -36,7 +36,7 @@ namespace Cache::RoomType {
         return list;
     }
 
-    static void persist(const RoomTypeModel &data)
+    static void persist(const RoomType &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_pms_type_chambre(id, reference,libelle, pers_min, pers_max, nb_enfant, pms_categorie_chambre_id) "
@@ -53,13 +53,13 @@ namespace Cache::RoomType {
         }
     }
 
-    static void persist(QList<RoomTypeModel> data)
+    static void persist(QList<RoomType> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_pms_type_chambre");
         if (q.exec()) {
-            foreach(const RoomTypeModel &item, data) {
+            foreach(const RoomType &item, data) {
                 persist(item);
             }
         }

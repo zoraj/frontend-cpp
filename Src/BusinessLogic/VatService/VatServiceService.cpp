@@ -7,8 +7,8 @@ VatServiceService::VatServiceService(const QString &apiKey, const QString &token
 
 void VatServiceService::fetchVat()
 {
-    endpoint = Constant::WSEndpoint::VAT;
-    HttpRequest req {fullPath(Constant::WS_VAT),
+    endpoint = constant::WSEndpoint::VAT;
+    HttpRequest req {fullPath(constant::WS_VAT),
         "GET",
         nullptr,
         apiKey,
@@ -18,10 +18,10 @@ void VatServiceService::fetchVat()
 }
 
 // Main callback methods
-void VatServiceService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void VatServiceService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     switch (endpoint) {
-        case Constant::WSEndpoint::VAT:
+        case constant::WSEndpoint::VAT:
             emit fetchVatFinished(response, status);
             break;
     }

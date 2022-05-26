@@ -11,7 +11,7 @@ public:
     void fetchFamilies();
     void fetchSubFamilies();
 
-    void callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
+    void callback(constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
 signals:
     void fetchFamiliesFinished(const QByteArray &, int);
     void fetchSubFamiliesFinished(const QByteArray &, int);

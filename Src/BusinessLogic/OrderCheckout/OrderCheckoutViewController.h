@@ -8,9 +8,10 @@
 #include "Src/BusinessLogic/Order/OrderDetailListModel.h"
 #include "OrderCheckoutListModel.h"
 
-#include "Src/BusinessLogic/Order/OrderModel.h"
-#include "OrderCheckoutModel.h"
-#include "Src/BusinessLogic/CashingMode/CashingModeModel.h"
+#include "Src/BusinessLogic/Order/Order.h"
+#include "Src/BusinessLogic/Order/OrderCache.h"
+#include "OrderCheckout.h"
+#include "Src/BusinessLogic/CashingMode/CashingMode.h"
 
 #include "OrderCheckoutCache.h"
 
@@ -21,15 +22,16 @@ class OrderCheckoutViewController : public BaseViewController
     Q_PROPERTY(OrderDetailListModel *orderDetailListModel MEMBER orderDetailListModel)
     Q_PROPERTY(OrderCheckoutListModel *orderCheckoutListModel MEMBER orderCheckoutListModel)
 
+    int orderId_;
     CashingModeListModel *cashingModeListModel;
     OrderDetailListModel *orderDetailListModel;
     OrderCheckoutListModel *orderCheckoutListModel;
-    OrderModel *order;
-    QList<OrderCheckoutModel *> orderCheckouts;
+    Order *order;
+    QList<OrderCheckout *> orderCheckouts;
 
-    OrderCheckoutModel *orderCheckout;
+    OrderCheckout *orderCheckout;
     void loadData();
-    CashingModeModel getCashingModeById(int cashingModeId);
+    CashingMode getCashingModeById(int cashingModeId);
     float calculateTotalCheckout();
     float getBalance();
 public:
@@ -37,15 +39,14 @@ public:
 
     void viewDidLoad() override;
     void viewDidUnload() override;
-    void setOrder(OrderModel *orderModel);
-
 public slots:
-    void validateButtonClicked();
-    void cashingModeSelected(int cashingModeId, float amount);
+    void validateButton_Clicked();
+    void cashingMode_Selected(int cashingModeId, float amount);
+    void setOrderId(int id);
 signals:
     void viewDidLoadFinished();
-    void cashingModeSelectedCallback(bool callback);
+    void cashingModeSelectedFinished();
     void checkoutDetailChanged(QString total);
-    void validateButtonFinished();
+    void validateButtonClickedFinished();
 };
 

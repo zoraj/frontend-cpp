@@ -45,9 +45,10 @@ Flickable {
                 cellHeight: 160
                 clip: true
                 visible: false
+                model: 20
                 delegate: PosActivitiesViewTableCell {
-                    cellWidth: tableNoteGridView.cellWidth - 10
-                    cellHeight: tableNoteGridView.cellHeight - 10
+                    cellWidth: tablePlanGridView.cellWidth - 10
+                    cellHeight: tablePlanGridView.cellHeight - 10
                     numTable: tableNum
                     isAvail: isAvailable
                     orderId: _orderId

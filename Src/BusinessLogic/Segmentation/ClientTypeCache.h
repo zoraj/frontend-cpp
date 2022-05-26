@@ -4,13 +4,13 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "ClientTypeModel.h"
+#include "ClientType.h"
 
-namespace Cache::ClientType {
+namespace cache::client_type {
 
-    static QList<ClientTypeModel> getAll()
+    static QList<ClientType> getAll()
     {
-        QList<ClientTypeModel> list;
+        QList<ClientType> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_mmc_type_client ORDER BY libelle");
         if (q.exec()) {
@@ -18,7 +18,7 @@ namespace Cache::ClientType {
             int code = q.record().indexOf("code");
             int libelle = q.record().indexOf("libelle");
             while (q.next()) {
-                ClientTypeModel data;
+                ClientType data;
                 data.id = q.value(id).toInt();
                 data.code = q.value(code).toString();
                 data.libelle = q.value(libelle).toString();
@@ -31,7 +31,7 @@ namespace Cache::ClientType {
         return list;
     }
 
-    static void persist(const ClientTypeModel &data)
+    static void persist(const ClientType &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_mmc_type_client(id, code,libelle) VALUES (:id, :code, :libelle)");
@@ -43,13 +43,13 @@ namespace Cache::ClientType {
         }
     }
 
-    static void persist(QList<ClientTypeModel> data)
+    static void persist(QList<ClientType> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_mmc_type_client");
         if (q.exec()) {
-            foreach(const ClientTypeModel &item, data) {
+            foreach(const ClientType &item, data) {
                 persist(item);
             }
         }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Src/Application/Base/BaseService.h"
-#include "PosGroupProductModel.h"
+#include "PosGroupProduct.h"
 
 class ProductService : public BaseService
 {
@@ -12,7 +12,7 @@ public:
     void fetchPosGroupProducts();
     void fetchPosProducts();
 
-    void callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
+    void callback(constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
 
 signals:
     void fetchPosGroupProductsFinished(const QByteArray &, int);

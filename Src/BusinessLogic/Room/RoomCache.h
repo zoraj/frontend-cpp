@@ -4,13 +4,13 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "RoomModel.h"
+#include "Room.h"
 
-namespace Cache::Room {
+namespace cache::room {
 
-    static QList<RoomModel> getAll()
+    static QList<Room *> getAll()
     {
-        QList<RoomModel> list;
+        QList<Room *> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pms_chambre ORDER BY numero_chambre");
         if (q.exec()) {
@@ -20,12 +20,12 @@ namespace Cache::Room {
             int pmsTypeChambreId = q.record().indexOf("pms_type_chambre_id");
             int etatChambre = q.record().indexOf("etat_chambre");
             while (q.next()) {
-                RoomModel data;
-                data.id = q.value(id).toInt();
-                data.numeroChambre = q.value(numeroChambre).toString();
-                data.numeroEtage = q.value(numeroEtage).toInt();
-                data.pmsTypeChambreId = q.value(pmsTypeChambreId).toInt();
-                data.etatChambre = q.value(etatChambre).toString();
+                Room *data = new Room();
+                data->id = q.value(id).toInt();
+                data->numeroChambre = q.value(numeroChambre).toString();
+                data->numeroEtage = q.value(numeroEtage).toInt();
+                data->typeChambreId = q.value(pmsTypeChambreId).toInt();
+                data->etatChambre = q.value(etatChambre).toString();
                 list.append(data);
              }
         }
@@ -35,29 +35,29 @@ namespace Cache::Room {
         return list;
     }
 
-    static void persist(const RoomModel &data)
+    static void persist(const Room *data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_pms_chambre(id, numero_chambre, numero_etage, pms_type_chambre_id, etat_chambre) "
                     "VALUES (:id, :numero_chambre, :numero_etage, :pms_type_chambre_id, :etat_chambre)");
 
-        q.bindValue(":id", data.id);
-        q.bindValue(":numero_chambre", data.numeroChambre);
-        q.bindValue(":numero_etage", data.numeroEtage);
-        q.bindValue(":pms_type_chambre_id", data.pmsTypeChambreId);
-        q.bindValue(":etat_chambre", data.etatChambre);
+        q.bindValue(":id", data->id);
+        q.bindValue(":numero_chambre", data->numeroChambre);
+        q.bindValue(":numero_etage", data->numeroEtage);
+        q.bindValue(":pms_type_chambre_id", data->typeChambreId);
+        q.bindValue(":etat_chambre", data->etatChambre);
         if (!q.exec()){
             qDebug()<< "Error: " << q.lastQuery() << q.lastError();
         }
     }
 
-    static void persist(QList<RoomModel> data)
+    static void persist(QList<Room *> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_pms_chambre");
         if (q.exec()) {
-            foreach(const RoomModel &item, data) {
+            foreach(Room *item, data) {
                 persist(item);
             }
         }

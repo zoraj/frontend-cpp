@@ -18,7 +18,7 @@ QVariant ClientListModel::data(const QModelIndex &index, int role) const
     if (index.row() > list.size() -1)
         return QVariant();
 
-    ClientModel item = list.at(index.row());
+    Client item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;

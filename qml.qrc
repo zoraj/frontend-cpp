@@ -23,8 +23,6 @@
         <file>UI/View/CodeConfirmationViewForm.ui.qml</file>
         <file>UI/View/PosActivitiesView.qml</file>
         <file>UI/View/PosActivitiesViewForm.ui.qml</file>
-        <file>UI/View/PlanningRecepView.qml</file>
-        <file>UI/View/PlanningRecepViewForm.ui.qml</file>
         <file>UI/ViewCell/PosActivitiesViewOpenOrderCell.qml</file>
         <file>Assets/Image/forward.png</file>
         <file>UI/ViewCell/PosActivitiesViewTableCell.qml</file>
@@ -32,8 +30,6 @@
         <file>Assets/Image/Pos/Activite/icone_bar_blue.png</file>
         <file>Assets/Image/Pos/Activite/icone_restaurant_blue.png</file>
         <file>Assets/Image/Pos/Activite/icone_veranda_blue.png</file>
-        <file>Assets/Image/Pos/Drawer/cook.png</file>
-        <file>Assets/Image/Pos/Drawer/logout.png</file>
         <file>Assets/Image/Pos/GroupProduct/apperitif.png</file>
         <file>Assets/Image/Pos/GroupProduct/bieres.png</file>
         <file>Assets/Image/Pos/GroupProduct/burger.png</file>
@@ -97,12 +93,37 @@
         <file>Assets/Image/Pos/CashingMode/mobileeuro.png</file>
         <file>Assets/Image/Pos/CashingMode/telecarte.png</file>
         <file>Assets/Image/Pos/CashingMode/transfert.png</file>
-        <file>UI/View/ResaPlanningView.qml</file>
-        <file>UI/View/ResaPlanningViewForm.ui.qml</file>
+        <file>UI/View/BookingPlanningView.qml</file>
+        <file>UI/View/BookingPlanningViewForm.ui.qml</file>
         <file>UI/View/RecepPlanningView.qml</file>
         <file>UI/View/RecepPlanningViewForm.ui.qml</file>
         <file>UI/View/HouseKeepingCalendarView.qml</file>
         <file>UI/View/HouseKeepingCalendarViewForm.ui.qml</file>
         <file>UI/ListModel/HouseKeepingDrawerListModel.qml</file>
+        <file>UI/View/BookingDetailView.qml</file>
+        <file>UI/View/BookingDetailViewForm.ui.qml</file>
+        <file>UI/ViewCell/BookingDetailRoomCell.qml</file>
+        <file>UI/Dialog/BookingHeaderDialog.qml</file>
+        <file>UI/Dialog/DatePickerDialog.qml</file>
+        <file>UI/Dialog/RoomSelectionDialog.qml</file>
+        <file>UI/ViewCell/BookingDetailRateMasterCell.qml</file>
+        <file>UI/Dialog/BookingDetailRateMasterDialog.qml</file>
+        <file>UI/Dialog/BookingDetailRateDetailDialog.qml</file>
+        <file>UI/ViewCell/BookingDetailArrhesCell.qml</file>
+        <file>UI/Dialog/BookingDetailArrhesInsertDialog.qml</file>
+        <file>UI/Dialog/BookingDetailArrhesReloadDialog.qml</file>
+        <file>UI/ViewCell/BookingPlanningItemCell.qml</file>
+        <file>UI/ViewCell/BookingPlanningViewCell.qml</file>
+        <file>Assets/Image/Common/mat-logo.png</file>
+        <file>Assets/Image/Common/logomat-centered.png</file>
+        <file>Assets/Image/Common/calendar-icon.png</file>
+        <file>Assets/Image/Common/cardex-icon.png</file>
+        <file>UI/Component/MatDatePickerBooking.qml</file>
+        <file>UI/Dialog/DatePickerBookingDialog.qml</file>
+        <file>Assets/Image/Common/edit-list-icon.png</file>
+        <file>Assets/Image/Common/arrow-left-icon.png</file>
+        <file>Assets/Image/Common/arrow-right-icon.png</file>
+        <file>Assets/Image/Common/logout-icon.png</file>
+        <file>Assets/Image/Common/clerck-icon.png</file>
     </qresource>
 </RCC>

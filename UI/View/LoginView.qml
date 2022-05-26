@@ -8,7 +8,7 @@ LoginViewForm {
         target: _signinViewController
         function onValidatePinCodeTriggeredFinished(result, module) {
             if (result) {
-                gModule = module // POS = 0; RECEP = 1, RESA = 2, HOUSEKEEPING = 3, COLLECTIVITE = 4
+                gModule = 2 // POS = 0; RECEP = 1, RESA = 2, HOUSEKEEPING = 3, COLLECTIVITE = 4
                 gIsConnected = true
                 switch(gModule) {
                 case 0:
@@ -16,6 +16,9 @@ LoginViewForm {
                     break
                 case 1:
                     gMainStackView.replace(null, "qrc:/UI/View/PlanningRecepView.qml", StackView.Immediate)
+                    break
+                case 2:
+                    gMainStackView.replace(null, "qrc:/UI/View/BookingPlanningView.qml", StackView.Immediate)
                     break
                 default:
                     break

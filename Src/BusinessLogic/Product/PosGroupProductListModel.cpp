@@ -17,7 +17,7 @@ QVariant PosGroupProductListModel::data(const QModelIndex &index, int role) cons
     if (index.row() > list.size() -1)
         return QVariant();
 
-    PosGroupProductModel item = list.at(index.row());
+    PosGroupProduct item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;

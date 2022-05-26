@@ -11,7 +11,7 @@ public:
 
     void postUserCredentials(const QString &pinCode);
     void fetchUsers();
-    void callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
+    void callback(constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
 signals:
     void postUserCredentialsFinished(const QByteArray &, int);
     void fetchUsersFinished(const QByteArray &, int);

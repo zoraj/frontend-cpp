@@ -3,24 +3,25 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "RoomModel.h"
+#include "Room.h"
 
-namespace Builder::Room {
+namespace builder::room {
 
-    static RoomModel create(const QJsonObject &json)
+    static Room *create(const QJsonObject &json)
     {
-        RoomModel output;
-        output.id = json["id"].toInt();
-        output.numeroChambre = json["numeroChambre"].toString();
-        output.numeroEtage = json["numeroEtage"].toInt();
-        output.pmsTypeChambreId = json["pmsTypeChambreId"].toInt();
-        output.etatChambre = json["etatChambre"].toString();
+        Room *output = new Room();
+        output->id = json["id"].toInt();
+        output->numeroChambre = json["numeroChambre"].toString();
+        output->numeroEtage = json["numeroEtage"].toInt();
+        output->typeChambreId = json["pmsTypeChambreId"].toInt();
+        output->etatChambre = json["etatChambre"].toString();
+        output->typeChambreLibelle = json["pmsTypeChambreLibelle"].toString();
         return output;
     };
 
-    static QList<RoomModel> create(const QByteArray &input)
+    static QList<Room *> create(const QByteArray &input)
     {
-        QList<RoomModel> result;
+        QList<Room *> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -28,7 +29,7 @@ namespace Builder::Room {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                RoomModel item = create(jsonObject);
+                Room *item = create(jsonObject);
                 result.append(item);
             }
         }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QAbstractListModel>
-#include "CashingModeModel.h"
+#include "CashingMode.h"
 
 class CashingModeListModel: public QAbstractListModel
 {
@@ -11,5 +11,5 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QHash<int, QByteArray> roleNames() const;
-    QList<CashingModeModel> list;
+    QList<CashingMode> list;
 };

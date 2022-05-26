@@ -4,12 +4,12 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "TopUpModel.h"
+#include "TopUp.h"
 
-namespace Cache::Cooking {
-    static QList<CookingModel> getAll()
+namespace cache::cooking {
+    static QList<Cooking> getAll()
     {
-        QList<CookingModel> list;
+        QList<Cooking> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pos_cuisson ORDER BY code");
         if (q.exec()) {
@@ -17,7 +17,7 @@ namespace Cache::Cooking {
             int code = q.record().indexOf("code");
             int libelle = q.record().indexOf("libelle");
             while (q.next()) {
-                CookingModel data;
+                Cooking data;
                 data.id = q.value(id).toInt();
                 data.code = q.value(code).toString();
                 data.libelle = q.value(libelle).toString();
@@ -29,7 +29,7 @@ namespace Cache::Cooking {
         }
         return list;
     }
-    static void persist(const CookingModel &data)
+    static void persist(const Cooking &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_pos_cuisson(id, code, libelle) "
@@ -43,13 +43,13 @@ namespace Cache::Cooking {
         }
     }
 
-    static void persist(QList<CookingModel> data)
+    static void persist(QList<Cooking> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_pos_cuisson");
         if (q.exec()) {
-            foreach(const CookingModel &item, data) {
+            foreach(const Cooking &item, data) {
                 persist(item);
             }
         }

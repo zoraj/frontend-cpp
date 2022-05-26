@@ -43,13 +43,13 @@ void ApplicationManager::initCacheSystem()
     QDir directory(QDir::homePath());
     QString databasePath = directory.absolutePath();
     qInfo() << "Database path : " << databasePath;
-    QString databaseFile = databasePath  + "/" +  Constant::DB_CACHE;
+    QString databaseFile = databasePath  + "/" +  constant::DB_CACHE;
 
     bool cacheExists = QFile::exists(databaseFile);
 
     if (!cacheExists) {
         qInfo() << "Caching database doesn't exist";
-        QFile cacheDb(":/Assets/Db/" + Constant::DB_CACHE);
+        QFile cacheDb(":/Assets/Db/" + constant::DB_CACHE);
         bool cacheCopyStatus = cacheDb.copy(databaseFile);
         if (cacheCopyStatus) {
             qInfo() << "Copying database cache successfully";
@@ -83,13 +83,13 @@ void ApplicationManager::initCacheSystem()
  */
 void ApplicationManager::loadSetting()
 {
-    auto setting =  Cache::Setting::get("DATE_LOGICIELLE");
+    auto setting =  cache::setting::get("DATE_LOGICIELLE");
     applicationContext->currentDate = QDate::fromString(setting.valeur, "yyyy-MM-dd");
 
-    setting =  Cache::Setting::get("API-KEY");
+    setting =  cache::setting::get("API-KEY");
     applicationContext->apiKey = setting.valeur;
 
-    setting =  Cache::Setting::get("UUID");
+    setting =  cache::setting::get("UUID");
     applicationContext->deviceUuid = setting.valeur;
 }
 

@@ -4,12 +4,12 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "SegmentationModel.h"
+#include "Segmentation.h"
 
-namespace Cache::Segmentation {
-    static QList<SegmentationModel> getAll()
+namespace cache::segmentation {
+    static QList<Segmentation> getAll()
     {
-        QList<SegmentationModel> list;
+        QList<Segmentation> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_mmc_segment_client ORDER BY libelle");
         if (q.exec()) {
@@ -17,7 +17,7 @@ namespace Cache::Segmentation {
             int code = q.record().indexOf("code");
             int libelle = q.record().indexOf("libelle");
             while (q.next()) {
-                SegmentationModel data;
+                Segmentation data;
                 data.id = q.value(id).toInt();
                 data.code = q.value(code).toString();
                 data.libelle = q.value(libelle).toString();
@@ -30,7 +30,7 @@ namespace Cache::Segmentation {
         return list;
     }
 
-    static void persist(const SegmentationModel &data)
+    static void persist(const Segmentation &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_mmc_segment_client(id, code, libelle) VALUES (:id, :code, :libelle)");
@@ -42,13 +42,13 @@ namespace Cache::Segmentation {
         }
     }
 
-    static void persist(QList<SegmentationModel> data)
+    static void persist(QList<Segmentation> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_mmc_segment_client");
         if (q.exec()) {
-            foreach(const SegmentationModel &item, data) {
+            foreach(const Segmentation &item, data) {
                 persist(item);
             }
         }

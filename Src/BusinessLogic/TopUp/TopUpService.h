@@ -10,7 +10,7 @@ public:
     void fetchCuissons();
     void fetchGarnitures();
 
-    void callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
+    void callback(constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
 signals:
     void fetchCuissonsFinished(const QByteArray &, int);
     void fetchGarnituresFinished(const QByteArray &, int);

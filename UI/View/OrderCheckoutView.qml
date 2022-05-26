@@ -9,24 +9,23 @@ OrderCheckoutViewForm {
             orderDetailListView.model = _orderCheckoutViewController.orderDetailListModel
             checkoutListView.model = _orderCheckoutViewController.orderCheckoutListModel;
         }
-        function onCashingModeSelectedCallback() {
+        function onCashingModeSelectedFinished() {
             gMainToast.start("Encaissement terminé")
-            _orderViewController.resetOrder()
-            gMainStackView.pop()
+            //_orderViewController.resetOrder()
         }
 
         function onCheckoutDetailChanged(totalAmount) {
             totalRecapCheckoutLabel.text = totalAmount
         }
-        function onValidateButtonFinished() {
+        function onValidateButtonClickedFinished() {
             gMainToast.start("Encaissement terminé")
             _orderViewController.resetOrder()
             gMainStackView.pop()
         }
-
     }
 
     Component.onCompleted: {
+        _orderCheckoutViewController.setOrderId(orderId)
         _orderCheckoutViewController.viewDidLoad()
         console.log("New order id " + orderId)
     }
@@ -34,7 +33,7 @@ OrderCheckoutViewForm {
     // UI Events
     validateButton.onClicked: {
         if (checkoutListView.count > 0) {
-            _checkOutViewController.validateButtonClicked()
+            _orderCheckoutViewController.validateButtonClicked()
         }
         else {
             gMainToast.start("Veuillez sélectionner un mode d'encaissement.")
@@ -43,13 +42,15 @@ OrderCheckoutViewForm {
 
     function cashingModeSelected(cashingModeId, amount) {
         let amountSelected = parseFloat(amount)
+        _orderCheckoutViewController.cashingModeSelected(cashingModeId, amountSelected)
+        /*
         if (checkoutListView.count === 0 && amountSelected <= 0.0) {
             let total = parseFloat("200.00")//totalRecapCheckoutLabel.text)
-            _checkOutViewController.cashingModeSelected(cashingModeId, total)
+            _orderCheckoutViewController.cashingModeSelected(cashingModeId, total)
         }
         else {
-            _checkOutViewController.cashingModeSelected(cashingModeId, amount)
-        }
+            _orderCheckoutViewController.cashingModeSelected(cashingModeId, amount)
+        }*/
 
         numKeys.clear()
     }

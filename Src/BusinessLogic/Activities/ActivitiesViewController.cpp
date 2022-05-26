@@ -3,12 +3,12 @@
 // Private methods
 void ActivitiesViewController::loadData()
 {
-    auto activities = Cache::Activity::getAll();
+    auto activities = cache::activity::getAll();
     activityListModel->list = activities;
 
     auto currentActivity = ApplicationManager::getInstance()->getAppContext()->currentActivity;
-    if (currentActivity != Constant::UNDEFINED_INT) {
-        auto orders = OrderCache::getByActivity(currentActivity);
+    if (currentActivity != constant::UNDEFINED_INT) {
+        auto orders = cache::order::getByActivity(currentActivity);
         openOrderListModel->setList(orders);
     }
 }
@@ -16,14 +16,14 @@ void ActivitiesViewController::loadData()
 void ActivitiesViewController::loadTableData(int activityId)
 {
     // Load existing orders
-    auto orders = OrderCache::getByActivity(ApplicationManager::getInstance()->getAppContext()->currentActivity);
+    auto orders = cache::order::getByActivity(ApplicationManager::getInstance()->getAppContext()->currentActivity);
 
     auto activity = getActivityById(activityId);
-    QList<TableModel> tables;
+    QList<Table> tables;
     for(int i = 1; i <= activity.nombreTable; ++i) {
-        TableModel table;
+        Table table;
         table.isAvailable = true;
-        table.orderId = Constant::UNDEFINED_INT;
+        table.orderId = constant::UNDEFINED_INT;
         // For every table, look at orders if any
         foreach(auto order, orders) {
             if (order->numTable == i) {
@@ -34,12 +34,14 @@ void ActivitiesViewController::loadTableData(int activityId)
         table.numTable = i;
         tables.append(table);
     }
+
+    qDebug() << "Tables count " << tables.size();
     tablePlanListModel->setList(tables);
 }
 
-ActivityModel ActivitiesViewController::getActivityById(int activityId)
+Activity ActivitiesViewController::getActivityById(int activityId)
 {
-    QList<ActivityModel>::iterator activity;
+    QList<Activity>::iterator activity;
     auto list = activityListModel->list;
     for (activity = list.begin(); activity != list.end(); ++activity) {
         if (activity->id == activityId) {
@@ -72,18 +74,18 @@ void ActivitiesViewController::viewDidUnload()
 
 }
 
-void ActivitiesViewController::openNoteButtonClicked(int activityId)
+void ActivitiesViewController::openNoteButton_Clicked(int activityId)
 {
     ApplicationManager::getInstance()->getAppContext()->currentActivity = activityId;
     loadData();
 }
 
-void ActivitiesViewController::newNoteButtonClicked(int activityId)
+void ActivitiesViewController::newNoteButton_Clicked(int activityId)
 {
      ApplicationManager::getInstance()->getAppContext()->currentActivity = activityId;
 }
 
-void ActivitiesViewController::tablePlanButtonClicked(int activityId)
+void ActivitiesViewController::tablePlanButton_Clicked(int activityId)
 {
     ApplicationManager::getInstance()->getAppContext()->currentActivity = activityId;
     loadTableData(activityId);

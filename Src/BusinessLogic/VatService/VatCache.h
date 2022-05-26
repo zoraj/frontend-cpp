@@ -4,10 +4,10 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "VatModel.h"
+#include "Vat.h"
 
-namespace Cache::Vat {
-    static void persist(const VatModel &data)
+namespace cache::vat {
+    static void persist(const Vat &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_mmc_tva(id, date_effective, valeur) "
@@ -21,13 +21,13 @@ namespace Cache::Vat {
         }
     }
 
-    static void persist(QList<VatModel> data)
+    static void persist(QList<Vat> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_mmc_tva");
         if (q.exec()) {
-            foreach(const VatModel &item, data) {
+            foreach(const Vat &item, data) {
                 persist(item);
             }
         }

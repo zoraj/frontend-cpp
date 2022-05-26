@@ -19,7 +19,7 @@ QVariant PosProductListModel::data(const QModelIndex &index, int role) const
     if (index.row() > list.size() -1)
         return QVariant();
 
-    PosProductModel item = list.at(index.row());
+    PosProduct item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;
@@ -60,14 +60,14 @@ QHash<int, QByteArray> PosProductListModel::roleNames() const
     return roles;
 }
 
-void PosProductListModel::setList(const QList<PosProductModel> list)
+void PosProductListModel::setList(const QList<PosProduct> list)
 {
     this->list = list;
     beginResetModel();
     endResetModel();
 }
 
-QList<PosProductModel> PosProductListModel::getList() const
+QList<PosProduct> PosProductListModel::getList() const
 {
     return list;
 }

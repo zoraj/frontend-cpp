@@ -50,6 +50,7 @@ Flickable {
                     bottom: 0
                     top: 9
                 }
+                echoMode: TextInput.Password
             }
             TextField {
                 id: t1
@@ -61,6 +62,7 @@ Flickable {
                     bottom: 0
                     top: 9
                 }
+                echoMode: TextInput.Password
             }
             TextField {
                 id: t2
@@ -72,6 +74,7 @@ Flickable {
                     bottom: 0
                     top: 9
                 }
+                echoMode: TextInput.Password
             }
             TextField {
                 id: t3
@@ -83,6 +86,7 @@ Flickable {
                     bottom: 0
                     top: 9
                 }
+                echoMode: TextInput.Password
             }
             Text {
                 id: resultText
@@ -93,7 +97,6 @@ Flickable {
                 font.pointSize: 40
                 color: "#06a8c4"
             }
-
         }
     }
 }

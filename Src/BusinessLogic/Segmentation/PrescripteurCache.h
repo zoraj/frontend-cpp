@@ -4,12 +4,12 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "PrescripteurModel.h"
+#include "Prescripteur.h"
 
-namespace Cache::Prescripteur {
-    static QList<PrescripteurModel> getAll()
+namespace cache::prescripteur {
+    static QList<Prescripteur> getAll()
     {
-        QList<PrescripteurModel> list;
+        QList<Prescripteur> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pms_prescripteur ORDER BY libelle");
         if (q.exec()) {
@@ -17,7 +17,7 @@ namespace Cache::Prescripteur {
             int code = q.record().indexOf("code");
             int libelle = q.record().indexOf("libelle");
             while (q.next()) {
-                PrescripteurModel data;
+                Prescripteur data;
                 data.id = q.value(id).toInt();
                 data.code = q.value(code).toString();
                 data.libelle = q.value(libelle).toString();
@@ -30,7 +30,7 @@ namespace Cache::Prescripteur {
         return list;
     }
 
-    static void persist(const PrescripteurModel &data)
+    static void persist(const Prescripteur &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_pms_prescripteur(id, code, libelle) VALUES (:id, :code, :libelle)");
@@ -42,13 +42,13 @@ namespace Cache::Prescripteur {
         }
     }
 
-    static void persist(QList<PrescripteurModel> data)
+    static void persist(QList<Prescripteur> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_pms_prescripteur");
         if (q.exec()) {
-            foreach(const PrescripteurModel &item, data) {
+            foreach(const Prescripteur &item, data) {
                 persist(item);
             }
         }

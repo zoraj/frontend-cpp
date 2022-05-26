@@ -8,8 +8,8 @@ SeasonService::SeasonService(const QString &apiKey, const QString &token): BaseS
 
 void SeasonService::fetchSeasons()
 {
-    endpoint = Constant::WSEndpoint::SEASONS;
-    HttpRequest req {fullPath(Constant::WS_SEASONS),
+    endpoint = constant::WSEndpoint::SEASONS;
+    HttpRequest req {fullPath(constant::WS_SEASONS),
         "GET",
         nullptr,
         apiKey,
@@ -20,8 +20,8 @@ void SeasonService::fetchSeasons()
 
 void SeasonService::fetchSubSeasons()
 {
-    endpoint = Constant::WSEndpoint::SUB_SEASONS;
-    HttpRequest req {fullPath(Constant::WS_SUB_SEASONS),
+    endpoint = constant::WSEndpoint::SUB_SEASONS;
+    HttpRequest req {fullPath(constant::WS_SUB_SEASONS),
         "GET",
         nullptr,
         apiKey,
@@ -31,13 +31,13 @@ void SeasonService::fetchSubSeasons()
 }
 
 // Main callback methods
-void SeasonService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void SeasonService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     switch (endpoint) {
-        case Constant::WSEndpoint::SEASONS:
+        case constant::WSEndpoint::SEASONS:
             emit fetchSeasonsFinished(response, status);
             break;
-        case Constant::WSEndpoint::SUB_SEASONS:
+        case constant::WSEndpoint::SUB_SEASONS:
             emit fetchSubSeasonsFinished(response, status);
             break;
     }

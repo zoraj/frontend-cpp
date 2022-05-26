@@ -3,12 +3,12 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "OrderModel.h"
+#include "Order.h"
 
-namespace PosOrderBuilder {
-    static OrderModel *create(const QJsonObject &json)
+namespace builder::order {
+    static Order *create(const QJsonObject &json)
     {
-        auto output = new OrderModel();
+        auto output = new Order();
         output->id = json["id"].toInt();
         output->numTable = json["numTable"].toInt();
         output->nbCouvert = json["nbCouvert"].toInt();
@@ -37,9 +37,9 @@ namespace PosOrderBuilder {
         return result;
     }*/
 
-    static OrderModel *create(const QByteArray &input)
+    static Order *create(const QByteArray &input)
     {
-        OrderModel *result = nullptr;
+        Order *result = nullptr;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);

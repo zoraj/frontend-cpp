@@ -16,7 +16,7 @@ QVariant CookingListModel::data(const QModelIndex &index, int role) const
     if (index.row() > list.size() -1)
         return QVariant();
 
-    CookingModel item = list.at(index.row());
+    Cooking item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;

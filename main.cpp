@@ -10,6 +10,7 @@
 
 #include "Src/Application/Manager/ApplicationManager.h"
 #include "Src/BusinessLogic/Splash/SplashViewController.h"
+#include "Src/BusinessLogic/Booking/Booking.h"
 
 /*! Log redirection
  * @param
@@ -52,10 +53,10 @@ void messageOutput(QtMsgType type, const QMessageLogContext &context, const QStr
  */
 void registerQmlType()
 {
-    //qmlRegisterType<BookingModel>("cloud.multimicro.mmc.frontend", 1, 0, "BookingModel");
+    qmlRegisterType<Booking>("cloud.multimicro.mmc.frontend", 1, 0, "Booking");
     //qmlRegisterType<StayModel>("cloud.multimicro.mmc.frontend", 1, 0, "StayModel");
-    qmlRegisterType<OrderModel>("cloud.multimicro.mmc.frontend", 1, 0, "OrderModel");
-    qmlRegisterType<OrderDetailModel>("cloud.multimicro.mmc.frontend", 1, 0, "OrderDetailModel");
+    qmlRegisterType<Order>("cloud.multimicro.mmc.frontend", 1, 0, "OrderModel");
+    qmlRegisterType<OrderDetail>("cloud.multimicro.mmc.frontend", 1, 0, "OrderDetailModel");
 }
 
 int main(int argc, char *argv[])

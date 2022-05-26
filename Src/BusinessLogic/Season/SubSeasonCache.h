@@ -3,10 +3,10 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
 #include <QDebug>
-#include "SubSeasonModel.h"
+#include "SubSeason.h"
 
-namespace Cache::SubSeason {
-    static void persist(const SubSeasonModel &data)
+namespace cache::sub_season {
+    static void persist(const SubSeason &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_pms_sous_saison(id, reference,libelle, pms_saison_id, date_debut, date_fin) "
@@ -22,13 +22,13 @@ namespace Cache::SubSeason {
         }
     }
 
-    static void persist(QList<SubSeasonModel> data)
+    static void persist(QList<SubSeason> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_pms_sous_saison");
         if (q.exec()) {
-            foreach(const SubSeasonModel &item, data) {
+            foreach(const SubSeason &item, data) {
                 persist(item);
             }
         }

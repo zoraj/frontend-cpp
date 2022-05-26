@@ -10,7 +10,7 @@ public:
 
     void fetchCashingMode();
 
-    void callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
+    void callback(constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
 signals:
     void fetchCashingModeFinished(const QByteArray &, int);
 };

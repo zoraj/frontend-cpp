@@ -5,7 +5,7 @@
 #include <QDebug>
 #include "RoomCategoryModel.h"
 
-namespace Cache::RoomCategory {
+namespace cache::room_category {
     static void persist(const RoomCategoryModel &data)
     {
         QSqlQuery q;

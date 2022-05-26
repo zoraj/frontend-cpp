@@ -4,12 +4,12 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "TopUpModel.h"
+#include "TopUp.h"
 
-namespace Cache::Accompaniment {
-    static QList<AccompanimentModel> getAll()
+namespace cache::accompaniment {
+    static QList<Accompaniment> getAll()
     {
-        QList<AccompanimentModel> list;
+        QList<Accompaniment> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pos_accompagnement ORDER BY code");
         if (q.exec()) {
@@ -17,7 +17,7 @@ namespace Cache::Accompaniment {
             int code = q.record().indexOf("code");
             int libelle = q.record().indexOf("libelle");
             while (q.next()) {
-                AccompanimentModel data;
+                Accompaniment data;
                 data.id = q.value(id).toInt();
                 data.code = q.value(code).toString();
                 data.libelle = q.value(libelle).toString();
@@ -29,7 +29,7 @@ namespace Cache::Accompaniment {
         }
         return list;
     }
-    static void persist(const AccompanimentModel &data)
+    static void persist(const Accompaniment &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_pos_accompagnement(id, code, libelle) "
@@ -43,13 +43,13 @@ namespace Cache::Accompaniment {
         }
     }
 
-    static void persist(QList<AccompanimentModel> data)
+    static void persist(QList<Accompaniment> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_pos_accompagnement");
         if (q.exec()) {
-            foreach(const AccompanimentModel &item, data) {
+            foreach(const Accompaniment &item, data) {
                 persist(item);
             }
         }

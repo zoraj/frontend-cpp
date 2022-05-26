@@ -6,7 +6,7 @@
 #include "Src/BusinessLogic/Order/OrderCache.h"
 #include "Src/BusinessLogic/Order/OrderBuilder.h"
 #include "ActivityCache.h"
-#include "Src/BusinessLogic/Table/TableModel.h"
+#include "Src/BusinessLogic/Table/Table.h"
 #include "Src/BusinessLogic/Table/TablePlanListModel.h"
 #include "ActivityListModel.h"
 #include "Src/BusinessLogic/Order/OrderListModel.h"
@@ -24,7 +24,7 @@ class ActivitiesViewController : public BaseViewController
 
     void loadData();
     void loadTableData(int activityId);
-    ActivityModel getActivityById(int activityId);
+    Activity getActivityById(int activityId);
 public:
     ActivitiesViewController(QObject *parent = nullptr);
 
@@ -37,9 +37,9 @@ public:
 signals:
     void viewDidLoadFinished(const QString &username);
 public slots:
-    void openNoteButtonClicked(int activityId);
-    void newNoteButtonClicked(int activityId);
-    void tablePlanButtonClicked(int activityId);
+    void openNoteButton_Clicked(int activityId);
+    void newNoteButton_Clicked(int activityId);
+    void tablePlanButton_Clicked(int activityId);
     void toggleService(const QString &service);
 };
 

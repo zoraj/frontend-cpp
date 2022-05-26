@@ -4,17 +4,17 @@
 #include <QJsonParseError>
 #include <QJsonArray>
 
-#include "UserModel.h"
+#include "User.h"
 
-namespace Builder::User {
-    static UserModel *create(const QByteArray &json)
+namespace builder::user {
+    static User *create(const QByteArray &json)
     {
-        UserModel *user = nullptr;
+        User *user = nullptr;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(json, &error);
         if (error.error == QJsonParseError::NoError) {
-            user = new UserModel();
+            user = new User();
             QJsonObject jsonObject = jsonDoc.object();
 
             user->id = jsonObject["id"].toInt();

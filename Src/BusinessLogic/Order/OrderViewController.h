@@ -4,7 +4,7 @@
 #include "Src/Application/Base/BaseViewController.h"
 #include "Src/Application/Base/BaseViewController.h"
 #include "Src/Application/Manager/ApplicationManager.h"
-#include "Src/BusinessLogic/Order/OrderModel.h"
+#include "Src/BusinessLogic/Order/Order.h"
 #include "Src/BusinessLogic/Product/PosGroupProductListModel.h"
 #include "Src/BusinessLogic/Product/PosProductListModel.h"
 #include "Src/BusinessLogic/Order/OrderDetailListModel.h"
@@ -12,8 +12,8 @@
 #include "Src/BusinessLogic/TopUp/CookingListModel.h"
 #include "Src/BusinessLogic/TopUp/AccompanimentListModel.h"
 
-#include "Src/BusinessLogic/Product/PosGroupProductModel.h"
-#include "Src/BusinessLogic/Setting/SettingModel.h"
+#include "Src/BusinessLogic/Product/PosGroupProduct.h"
+#include "Src/BusinessLogic/Setting/Setting.h"
 
 #include "Src/BusinessLogic/Product/PosGroupProductCache.h"
 #include "Src/BusinessLogic/Product/PosProductCache.h"
@@ -38,7 +38,7 @@ class OrderViewController : public BaseViewController
     Q_PROPERTY(CookingListModel *cookingListModel MEMBER cookingListModel_)
     Q_PROPERTY(AccompanimentListModel *accompanimentListModel MEMBER accompanimentListModel_)
     Q_PROPERTY(ClientListModel *clientListModel MEMBER clientListModel_)
-    Q_PROPERTY(OrderModel *order MEMBER order_)
+    Q_PROPERTY(Order *order MEMBER order_)
     Q_PROPERTY(QSortFilterProxyModel *productListProxyModel MEMBER productListProxyModel_ CONSTANT)
     Q_PROPERTY(QSortFilterProxyModel *productSearchListProxyModel MEMBER productSearchListProxyModel_ CONSTANT)
     Q_PROPERTY(QSortFilterProxyModel *clientListProxyModel MEMBER clientListProxyModel_ CONSTANT)
@@ -46,7 +46,7 @@ class OrderViewController : public BaseViewController
     float grossTotal_;
     float vatTotal_;
     float netTotal_;
-    OrderModel *order_;
+    Order *order_;
     PosGroupProductListModel *groupProductListModel_;
     PosProductListModel *productListModel_;
     OrderDetailListModel *orderDetailListModel_;
@@ -60,7 +60,7 @@ class OrderViewController : public BaseViewController
     //QSharedPointer<CheckOutViewController> checkoutViewController;
 
     int cacheOrder();
-    PosProductModel getProductById(int productId);
+    PosProduct getProductById(int productId);
     void loadData();
     void recalculateTotal();
     void initNewOrder();
@@ -75,7 +75,7 @@ public:
     void viewDidUnload() override;
 
     Q_INVOKABLE
-    void setOrder(OrderModel *);
+    void setOrder(Order *);
     Q_INVOKABLE
     void resetOrder();
 
@@ -91,7 +91,7 @@ public slots:
     void ticketButtonClicked();
 signals:
     void viewDidLoadFinished();
-    void orderChanged(OrderModel *order);
+    void orderChanged(Order *order);
     void orderDetailChanged(QString grossTotal, QString vatTotal, QString netTotal);
     void checkoutButtonClickFinished(int orderId);
 };

@@ -9,7 +9,7 @@ public:
     DeviceService(const QString &apiKey, const QString &token);
     void checkCodeConfirmation( const QString &code);
 
-    void callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
+    void callback(constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
 signals:
   void checkCodeConfirmationFinished(const QByteArray &response, int status);
 };

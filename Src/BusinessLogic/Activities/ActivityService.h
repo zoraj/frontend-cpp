@@ -10,7 +10,7 @@ public:
 
     void fetchActivities();
 
-    void callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
+    void callback(constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
 signals:
     void fetchActivitiesFinished(const QByteArray &, int);
 };

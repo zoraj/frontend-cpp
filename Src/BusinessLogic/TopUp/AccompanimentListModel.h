@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QAbstractListModel>
-#include "TopUpModel.h"
+#include "TopUp.h"
 
 class AccompanimentListModel: public QAbstractListModel
 {
@@ -11,5 +11,5 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QHash<int, QByteArray> roleNames() const;
-    QList<AccompanimentModel> list;
+    QList<Accompaniment> list;
 };

@@ -3,22 +3,22 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "FamilyModel.h"
+#include "Family.h"
 
-namespace Builder::Family {
+namespace builder::family {
 
-    static FamilyModel create(const QJsonObject &json)
+    static Family create(const QJsonObject &json)
     {
-        FamilyModel output;
+        Family output;
         output.id = json["id"].toInt();
         output.code = json["code"].toString();
         output.libelle = json["libelle"].toString();
         return output;
     };
 
-    static QList<FamilyModel> create(const QByteArray &input)
+    static QList<Family> create(const QByteArray &input)
     {
-        QList<FamilyModel> result;
+        QList<Family> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -26,7 +26,7 @@ namespace Builder::Family {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                FamilyModel item = create(jsonObject);
+                Family item = create(jsonObject);
                 result.append(item);
             }
         }

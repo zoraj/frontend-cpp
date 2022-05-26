@@ -18,7 +18,7 @@ QVariant OrderListModel::data(const QModelIndex &index, int role) const
     if (index.row() > list.size() -1)
         return QVariant();
 
-    OrderModel *item = list.at(index.row());
+    Order *item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;
@@ -58,7 +58,7 @@ QHash<int, QByteArray> OrderListModel::roleNames() const
     return roles;
 }
 
-void OrderListModel::setList(QList<OrderModel *> list)
+void OrderListModel::setList(QList<Order *> list)
 {
     this->list = list;
     beginResetModel();

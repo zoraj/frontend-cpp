@@ -5,22 +5,32 @@ ViewControllerManager::ViewControllerManager(QObject *parent) : QObject(parent)
 
 }
 
-void ViewControllerManager::initControllers(Constant::Module module)
+void ViewControllerManager::initControllers(constant::Module module)
 {
-    signupViewController = new SignupViewController();
-    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_signupViewController", signupViewController);
+    signupViewController_ = new SignupViewController();
+    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_signupViewController", signupViewController_);
 
-    codeConfirmationViewController = new CodeConfirmationViewController();
-    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_codeConfirmationViewController", codeConfirmationViewController);
+    codeConfirmationViewController_ = new CodeConfirmationViewController();
+    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_codeConfirmationViewController", codeConfirmationViewController_);
 
-    orderViewController = new OrderViewController();
-    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_orderViewController", orderViewController);
+    orderViewController_ = new OrderViewController();
+    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_orderViewController", orderViewController_);
 
-    orderCheckoutViewController = new OrderCheckoutViewController();
-    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_orderCheckoutViewController", orderCheckoutViewController);
+    orderCheckoutViewController_ = new OrderCheckoutViewController();
+    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_orderCheckoutViewController", orderCheckoutViewController_);
+
+    bookingDetailViewController_ = new BookingDetailViewController();
+    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_bookingDetailViewController", bookingDetailViewController_);
+
+    bookingPlanningViewController_ = new BookingPlanningViewController();
+    ApplicationManager::getInstance()->getAppContext()->uiContext->setContextProperty("_bookingPlanningViewController", bookingPlanningViewController_);
 }
 
 void ViewControllerManager::releaseControllers(int module)
 {
-
+    delete signupViewController_;
+    delete codeConfirmationViewController_;
+    delete orderViewController_;
+    delete orderCheckoutViewController_;
+    delete bookingDetailViewController_;
 }

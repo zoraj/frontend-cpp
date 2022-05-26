@@ -3,12 +3,12 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "RoomTypeModel.h"
+#include "RoomType.h"
 
-namespace Builder::RoomType {
-    static RoomTypeModel create(const QJsonObject &json)
+namespace builder::room_type {
+    static RoomType create(const QJsonObject &json)
     {
-        RoomTypeModel output;
+        RoomType output;
         output.id = json["id"].toInt();
         output.libelle = json["libelle"].toString();
         output.reference = json["reference"].toString();
@@ -19,9 +19,9 @@ namespace Builder::RoomType {
         return output;
     };
 
-    static QList<RoomTypeModel> create(const QByteArray &input)
+    static QList<RoomType> create(const QByteArray &input)
     {
-        QList<RoomTypeModel> result;
+        QList<RoomType> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -29,7 +29,7 @@ namespace Builder::RoomType {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                RoomTypeModel item = create(jsonObject);
+                RoomType item = create(jsonObject);
                 result.append(item);
             }
         }

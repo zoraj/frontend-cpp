@@ -38,8 +38,9 @@ Item {
                 text: qsTr("TABLE_PLAN")
                 enabled: isTablePlan
                 onClicked: {
-                    _activitiesViewController.tablePlanButtonClicked(activityId)
-                    showTableNote()
+                    tablePlanButtonClicked(activityId)
+                    //_activitiesViewController.tablePlanButtonClicked(activityId)
+                    //showTableNote()
                 }
             }
             Button {

@@ -4,12 +4,12 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "PosProductModel.h"
+#include "PosProduct.h"
 
-namespace Cache::PosProduct {
-    static QList<PosProductModel> getAll()
+namespace cache::pos_product {
+    static QList<PosProduct> getAll()
     {
-        QList<PosProductModel> list;
+        QList<PosProduct> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pos_prestation ORDER BY libelle");
         if (q.exec()) {
@@ -20,7 +20,7 @@ namespace Cache::PosProduct {
             int groupeId = q.record().indexOf("pos_prestation_groupe_id");
             int couleur = q.record().indexOf("couleur");
             while (q.next()) {
-                PosProductModel data;
+                PosProduct data;
                 data.id = q.value(id).toInt();
                 data.code = q.value(code).toString();
                 data.libelle = q.value(libelle).toString();
@@ -36,7 +36,7 @@ namespace Cache::PosProduct {
         return list;
     }
 
-    static void persist(const PosProductModel &data)
+    static void persist(const PosProduct &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_pos_prestation(id, code, libelle, pos_prestation_groupe_id, position_commande, type, prix, couleur, mmc_sous_famille_ca_id) "
@@ -56,13 +56,13 @@ namespace Cache::PosProduct {
         }
     }
 
-    static void persist(QList<PosProductModel> data)
+    static void persist(QList<PosProduct> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_pos_prestation");
         if (q.exec()) {
-            foreach(const PosProductModel &item, data) {
+            foreach(const PosProduct &item, data) {
                 persist(item);
             }
         }

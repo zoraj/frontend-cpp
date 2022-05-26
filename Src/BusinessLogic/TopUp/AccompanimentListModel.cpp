@@ -16,7 +16,7 @@ QVariant AccompanimentListModel::data(const QModelIndex &index, int role) const
     if (index.row() > list.size() -1)
         return QVariant();
 
-    AccompanimentModel item = list.at(index.row());
+    Accompaniment item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;

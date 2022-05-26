@@ -7,8 +7,8 @@ TopUpService::TopUpService(const QString &apiKey, const QString &token): BaseSer
 
 void TopUpService::fetchCuissons()
 {
-    endpoint = Constant::WSEndpoint::CUISSON;
-    HttpRequest req {fullPath(Constant::WS_CUISSON),
+    endpoint = constant::WSEndpoint::CUISSON;
+    HttpRequest req {fullPath(constant::WS_CUISSON),
         "GET",
         nullptr,
         apiKey,
@@ -19,8 +19,8 @@ void TopUpService::fetchCuissons()
 
 void TopUpService::fetchGarnitures()
 {
-    endpoint = Constant::WSEndpoint::GARNITURE;
-    HttpRequest req {fullPath(Constant::WS_GARNITURE),
+    endpoint = constant::WSEndpoint::GARNITURE;
+    HttpRequest req {fullPath(constant::WS_GARNITURE),
         "GET",
         nullptr,
         apiKey,
@@ -30,12 +30,12 @@ void TopUpService::fetchGarnitures()
 }
 
 // Main callback methods
-void TopUpService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void TopUpService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
-    if (endpoint == Constant::WSEndpoint::CUISSON) {
+    if (endpoint == constant::WSEndpoint::CUISSON) {
         emit fetchCuissonsFinished(response, status);
     }
-    if (endpoint == Constant::WSEndpoint::GARNITURE) {
+    if (endpoint == constant::WSEndpoint::GARNITURE) {
         emit fetchGarnituresFinished(response, status);
     }
 }

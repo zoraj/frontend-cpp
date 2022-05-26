@@ -8,8 +8,8 @@ FamilyService::FamilyService(const QString &apiKey, const QString &token): BaseS
 
 void FamilyService::fetchFamilies()
 {
-    endpoint = Constant::WSEndpoint::FAMILIES;
-    HttpRequest req {fullPath(Constant::WS_FAMILIES),
+    endpoint = constant::WSEndpoint::FAMILIES;
+    HttpRequest req {fullPath(constant::WS_FAMILIES),
         "GET",
         nullptr,
         apiKey,
@@ -20,8 +20,8 @@ void FamilyService::fetchFamilies()
 
 void FamilyService::fetchSubFamilies()
 {
-    endpoint = Constant::WSEndpoint::SUB_FAMILIES;
-    HttpRequest req {fullPath(Constant::WS_SUB_FAMILIES),
+    endpoint = constant::WSEndpoint::SUB_FAMILIES;
+    HttpRequest req {fullPath(constant::WS_SUB_FAMILIES),
         "GET",
         nullptr,
         apiKey,
@@ -31,13 +31,13 @@ void FamilyService::fetchSubFamilies()
 }
 
 // Main callback methods
-void FamilyService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void FamilyService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     switch (endpoint) {
-        case Constant::WSEndpoint::FAMILIES:
+        case constant::WSEndpoint::FAMILIES:
             emit fetchFamiliesFinished(response, status);
             break;
-        case Constant::WSEndpoint::SUB_FAMILIES:
+        case constant::WSEndpoint::SUB_FAMILIES:
             emit fetchSubFamiliesFinished(response, status);
             break;
     }

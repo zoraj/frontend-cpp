@@ -17,7 +17,7 @@
 #include <QTimer>
 
 #include "Src/Application/Util/Constant.h"
-#include "Src/BusinessLogic/User/UserModel.h"
+#include "Src/BusinessLogic/User/User.h"
 #include "Src/BusinessLogic/Setting/SettingCache.h"
 
 /* Blueprint for storing global context */
@@ -27,9 +27,9 @@ struct ApplicationContext
     QString deviceUuid;
     QDate currentDate; // Not always today
     QTimer *timer;
-    UserModel *user = nullptr;
+    User *user = nullptr;
     bool isCacheNeedToReload = true;
-    int currentActivity = Constant::UNDEFINED_INT;
+    int currentActivity = constant::UNDEFINED_INT;
     QString currentPOSService = "M"; // M: MIDI, S: SOIR
     QThread *cacheThread;
     QVector<int> ordersPool; // It will store <orderId> . Needed for the cloud syncing

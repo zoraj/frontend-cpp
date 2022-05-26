@@ -52,12 +52,15 @@
 #include "Src/BusinessLogic/Room/RoomBuilder.h"
 #include "Src/BusinessLogic/Room/RoomCache.h"
 #include "Src/BusinessLogic/Activities/ActivitiesViewController.h"
+#include "Src/BusinessLogic/Rate/RateGridService.h"
+#include "Src/BusinessLogic/Rate/RateGridBuilder.h"
+#include "Src/BusinessLogic/Rate/RateGridCache.h"
 
 class SigninViewController : public BaseViewController
 {
     Q_OBJECT
-    void fetchRemoteDataThenCache(Constant::Module module);
-    void registerControllers(Constant::Module module);
+    void fetchRemoteDataThenCache(constant::Module module);
+    void registerControllers(constant::Module module);
 public:
     SigninViewController(QObject *parent = nullptr);
 signals:

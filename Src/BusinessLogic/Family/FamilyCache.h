@@ -4,10 +4,10 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "FamilyModel.h"
+#include "Family.h"
 
-namespace Cache::Family {
-    static void persist(const FamilyModel &data)
+namespace cache::family {
+    static void persist(const Family &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_mmc_famille_ca(id, code, libelle) "
@@ -21,13 +21,13 @@ namespace Cache::Family {
         }
     }
 
-    static void persist(QList<FamilyModel> data)
+    static void persist(QList<Family> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_mmc_famille_ca");
         if (q.exec()) {
-            foreach(const FamilyModel &item, data) {
+            foreach(const Family &item, data) {
                 persist(item);
             }
         }

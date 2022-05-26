@@ -2,21 +2,21 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "ClientTypeModel.h"
+#include "ClientType.h"
 
-namespace Builder::ClientType {
-    static ClientTypeModel create(const QJsonObject &json)
+namespace builder::client_type {
+    static ClientType create(const QJsonObject &json)
     {
-        ClientTypeModel output;
+        ClientType output;
         output.id = json["id"].toInt();
         output.code = json["code"].toString();
         output.libelle = json["libelle"].toString();
         return output;
     };
 
-    static QList<ClientTypeModel> create(const QByteArray &input)
+    static QList<ClientType> create(const QByteArray &input)
     {
-        QList<ClientTypeModel> result;
+        QList<ClientType> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -24,7 +24,7 @@ namespace Builder::ClientType {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                ClientTypeModel item = create(jsonObject);
+                ClientType item = create(jsonObject);
                 result.append(item);
             }
         }

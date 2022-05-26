@@ -2,21 +2,21 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "PrescripteurModel.h"
+#include "Prescripteur.h"
 
-namespace Builder::Prescripteur {
-    static PrescripteurModel create(const QJsonObject &json)
+namespace builder::prescripteur {
+    static Prescripteur create(const QJsonObject &json)
     {
-        PrescripteurModel output;
+        Prescripteur output;
         output.id = json["id"].toInt();
         output.code = json["code"].toString();
         output.libelle = json["libelle"].toString();
         return output;
     };
 
-    static QList<PrescripteurModel> create(const QByteArray &input)
+    static QList<Prescripteur> create(const QByteArray &input)
     {
-        QList<PrescripteurModel> result;
+        QList<Prescripteur> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -24,7 +24,7 @@ namespace Builder::Prescripteur {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                PrescripteurModel item = create(jsonObject);
+                Prescripteur item = create(jsonObject);
                 result.append(item);
             }
         }

@@ -30,7 +30,7 @@ void SplashViewController::viewDidLoad()
     }
     else {
         const int moduleId = 2;// POS = 0; RECEP = 1, RESA = 2, HOUSEKEEPING = 3, COLLECTIVITE = 4
-        auto module = static_cast<Constant::Module>(moduleId);
+        auto module = static_cast<constant::Module>(moduleId);
 
         auto viewControllerManager = new ViewControllerManager();
         viewControllerManager->initControllers(module);

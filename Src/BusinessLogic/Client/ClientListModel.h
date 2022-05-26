@@ -2,7 +2,7 @@
 
 #include <QAbstractListModel>
 
-#include "ClientModel.h"
+#include "Client.h"
 
 class ClientListModel : public QAbstractListModel
 {
@@ -12,5 +12,5 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QHash<int, QByteArray> roleNames() const;
-    QList<ClientModel> list;
+    QList<Client> list;
 };

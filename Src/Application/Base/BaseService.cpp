@@ -13,22 +13,22 @@ BaseService::BaseService(const QString &apiKey, const QString &token): apiKey(ap
 
 QString BaseService::fullPath(const QString &method) const
 {
-    return Constant::WS_ROOT_URL + method;
+    return constant::WS_ROOT_URL + method;
 }
 
 void BaseService::executeRequest(const HttpRequest &request)
 {
-    if (endpoint == Constant::WSEndpoint::UNKNOWN) {
+    if (endpoint == constant::WSEndpoint::UNKNOWN) {
         qDebug() << "Looks like no endpoint set";
     }
 
     timer.start();
-    qDebug() << "Http request: " << request.url;
+    //qDebug() << "Http request: " << request.url;
     HttpRequestInput input(request.url, request.method);
     input.apiKey = request.apiKey;
     input.bearerToken = request.bearerToken;
 
-    if (request.method == "POST" || request.method == "PUT") {
+    if (request.method == "POST" || request.method == "PUT" || request.method == "PATCH") {
         QJsonDocument doc(*request.payload);
         QByteArray s = doc.toJson();
         input.payload = s;
@@ -42,7 +42,7 @@ void BaseService::executeRequest(const HttpRequest &request)
 
 void BaseService::executeRequest(const HttpRequestForArray &request)
 {
-    if (endpoint == Constant::WSEndpoint::UNKNOWN) {
+    if (endpoint == constant::WSEndpoint::UNKNOWN) {
         qDebug() << "Looks like no endpoint set";
     }
 
@@ -52,7 +52,7 @@ void BaseService::executeRequest(const HttpRequestForArray &request)
     input.apiKey = request.apiKey;
     input.bearerToken = request.bearerToken;
 
-    if (request.method == "POST" || request.method == "PUT") {
+    if (request.method == "POST" || request.method == "PUT" || request.method == "PATCH") {
         QJsonDocument doc(*request.payload);
         QByteArray s = doc.toJson();
         input.payload = s;
@@ -73,13 +73,13 @@ void BaseService::handleResult(HttpUtil *httpUtil)
     QByteArray response = httpUtil->response;
      status = httpUtil->httpStatusCode;
 #ifdef QT_DEBUG
-    //qDebug() << "Http request result: " << elapsedTime << " milliseconds - " << response.size() << " bytes" ;
-    //qDebug() << qPrintable(response);
+    qDebug() << "Http request result: " << elapsedTime << " milliseconds - " << response.size() << " bytes" ;
+    // qDebug() << qPrintable(response);
 #endif
     callback(endpoint, response, status);
 }
 
-void BaseService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void BaseService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     qDebug() << "Http status code : " << status;
     qDebug() <<  response;

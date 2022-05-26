@@ -1,21 +1,21 @@
 #pragma once
 
 #include <QObject>
-#include "SettingModel.h"
+#include "Setting.h"
 
-namespace Builder::Setting {
+namespace builder::setting {
 
-    static SettingModel create(const QJsonObject &json)
+    static Setting create(const QJsonObject &json)
     {
-        SettingModel setting;
+        Setting setting;
         setting.cle = json["cle"].toString();
         setting.valeur = json["valeur"].toString();
         return setting;
     };
 
-    static QList<SettingModel> create(const QByteArray &input)
+    static QList<Setting> create(const QByteArray &input)
     {
-        QList<SettingModel> settings;
+        QList<Setting> settings;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -23,7 +23,7 @@ namespace Builder::Setting {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                SettingModel setting = create(jsonObject);
+                Setting setting = create(jsonObject);
                 settings.append(setting);
             }
         }

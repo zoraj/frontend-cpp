@@ -4,21 +4,21 @@
 #include <QJsonParseError>
 #include <QJsonArray>
 
-#include "TopUpModel.h"
+#include "TopUp.h"
 
-namespace Builder::Accompaniment {
-    static AccompanimentModel create(const QJsonObject &json)
+namespace builder::accompaniment {
+    static Accompaniment create(const QJsonObject &json)
     {
-        AccompanimentModel  output;
+        Accompaniment  output;
         output.id = json["id"].toInt();
         output.code = json["code"].toString();
         output.libelle = json["libelle"].toString();
         return output;
     }
 
-    static QList<AccompanimentModel > create(const QByteArray &input)
+    static QList<Accompaniment > create(const QByteArray &input)
     {
-        QList<AccompanimentModel > result;
+        QList<Accompaniment > result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -26,7 +26,7 @@ namespace Builder::Accompaniment {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                AccompanimentModel item = create(jsonObject);
+                Accompaniment item = create(jsonObject);
                 result.append(item);
             }
         }

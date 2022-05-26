@@ -7,8 +7,8 @@ DeviceService::DeviceService(const QString &apiKey, const QString &token): BaseS
 
 void DeviceService::checkCodeConfirmation(const QString &code)
 {
-    endpoint = Constant::WSEndpoint::CODE_DEVICE_CONFIRMATION;
-    QString url = Constant::WS_E_URL + QString(Constant::WS_CODE_DEVICE_CONFIRMATION).arg(code);
+    endpoint = constant::WSEndpoint::CODE_DEVICE_CONFIRMATION;
+    QString url = constant::WS_E_URL + QString(constant::WS_CODE_DEVICE_CONFIRMATION).arg(code);
     HttpRequest request { url,
                     "GET",
                     nullptr,
@@ -17,8 +17,8 @@ void DeviceService::checkCodeConfirmation(const QString &code)
     executeRequest(request);
 }
 
-void DeviceService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void DeviceService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
-    if (endpoint == Constant::WSEndpoint::CODE_DEVICE_CONFIRMATION)
+    if (endpoint == constant::WSEndpoint::CODE_DEVICE_CONFIRMATION)
         emit checkCodeConfirmationFinished(response, status);
 }

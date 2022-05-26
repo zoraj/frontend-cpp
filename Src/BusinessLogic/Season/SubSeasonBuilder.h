@@ -2,12 +2,12 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "SubSeasonModel.h"
+#include "SubSeason.h"
 
-namespace Builder::SubSeason {
-    static SubSeasonModel create(const QJsonObject &json)
+namespace builder::sub_season {
+    static SubSeason create(const QJsonObject &json)
     {
-        SubSeasonModel output;
+        SubSeason output;
         output.id = json["id"].toInt();
         output.reference = json["reference"].toString();
         output.libelle = json["libelle"].toString();
@@ -17,9 +17,9 @@ namespace Builder::SubSeason {
         return output;
     };
 
-    static QList<SubSeasonModel> create(const QByteArray &input)
+    static QList<SubSeason> create(const QByteArray &input)
     {
-        QList<SubSeasonModel> result;
+        QList<SubSeason> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -27,7 +27,7 @@ namespace Builder::SubSeason {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                SubSeasonModel item = create(jsonObject);
+                SubSeason item = create(jsonObject);
                 result.append(item);
             }
         }

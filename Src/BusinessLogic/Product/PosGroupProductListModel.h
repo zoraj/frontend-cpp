@@ -1,6 +1,6 @@
 #pragma once
 #include <QAbstractListModel>
-#include "PosGroupProductModel.h"
+#include "PosGroupProduct.h"
 
 class PosGroupProductListModel: public QAbstractListModel
 {
@@ -10,6 +10,6 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QHash<int, QByteArray> roleNames() const;
-    QList<PosGroupProductModel> list;
+    QList<PosGroupProduct> list;
 
 };

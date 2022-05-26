@@ -6,12 +6,12 @@
 #include <QDebug>
 
 #include "Src/Application/Util/Constant.h"
-#include "OrderModel.h"
+#include "Order.h"
 
-namespace OrderCache {
-    static OrderModel *getById(int id)
+namespace cache::order {
+    static Order *getById(int id)
     {
-        OrderModel *data = new OrderModel();
+        Order *data = new Order();
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pos_note_entete WHERE id = :id");
         q.bindValue(":id", id);
@@ -34,12 +34,15 @@ namespace OrderCache {
                 data->etat = q.value(etat).toString();
 
                 // Let's see if there is some details
-                q.prepare("SELECT * FROM t_pos_note_detail WHERE pos_note_entete_id =:headerId ORDER BY id");
+                q.prepare("SELECT *, t_pos_prestation.libelle as libelle FROM t_pos_note_detail "
+                          " LEFT JOIN t_pos_prestation ON t_pos_note_detail.pos_prestation_id = t_pos_prestation.id"
+                          " WHERE pos_note_entete_id =:headerId ORDER BY id");
                 q.bindValue(":headerId", data->id);
                 if (q.exec()) {
                     int id = q.record().indexOf("id");
                     int dateNote = q.record().indexOf("date_note");
                     int prestationId = q.record().indexOf("pos_prestation_id");
+                    int prestationLibelle = q.record().indexOf("libelle");
                     int pu = q.record().indexOf("pos_prestation_prix");
                     int qte = q.record().indexOf("qte");
                     int qteCdeMarche = q.record().indexOf("qte_cde_marche");
@@ -48,17 +51,17 @@ namespace OrderCache {
                     int enteteId = q.record().indexOf("pos_note_entete_id");
 
                     while (q.next()) {
-                        OrderDetailModel *detail = new OrderDetailModel();
+                        OrderDetail *detail = new OrderDetail();
                         detail->id = q.value(id).toInt();
                         detail->prestationId = q.value(prestationId).toInt();
-                        detail->prestationLibelle = "";
+                        detail->prestationLibelle = q.value(prestationLibelle).toString();
                         detail->dateNote = QDateTime::fromString(q.value(dateNote).toString(), "yyyy-MM-dd hh:mm:ss");
-                        detail->prix = 0.00f;
+                        detail->pu = q.value(pu).toFloat();
                         detail->qte = q.value(qte).toInt();
                         detail->isVAE = false;
                         detail->isOffert = false;
-                        detail->total = 0.00f;
-                        detail->pu = q.value(pu).toFloat();
+                        detail->total = detail->pu * detail->qte;
+
                         detail->noteEnteteId = q.value(enteteId).toInt();
                         data->orderDetail.append(detail);
                      }
@@ -105,9 +108,9 @@ namespace OrderCache {
         return true;
     }
 
-    static QList<OrderModel *> getAll()
+    static QList<Order *> getAll()
     {
-        QList<OrderModel *> list;
+        QList<Order *> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pos_note_entete ORDER BY date_note");
         if (q.exec()) {
@@ -119,7 +122,7 @@ namespace OrderCache {
             int etat = q.record().indexOf("etat");
 
             while (q.next()) {
-                OrderModel *data = new OrderModel();
+                Order *data = new Order();
                 data->id = q.value(id).toInt();
                 data->numTable = q.value(numTable).toInt();
                 data->nbCouvert = q.value(nbCouvert).toInt();
@@ -135,9 +138,9 @@ namespace OrderCache {
         return list;
     }
 
-    static QList<OrderModel *> getByActivity(int activityId, int numTable = 0)
+    static QList<Order *> getByActivity(int activityId, int numTable = 0)
     {
-        QList<OrderModel *> list;
+        QList<Order *> list;
         QSqlQuery q;
         if (numTable != 0) {
             q.prepare("SELECT * FROM t_pos_note_entete WHERE etat = 'ENCOURS' AND pos_activite_id = :pos_activite_id AND num_table=:num_table");
@@ -157,7 +160,7 @@ namespace OrderCache {
             int uuid = q.record().indexOf("poste_uuid");
             int etat = q.record().indexOf("etat");
             while (q.next()) {
-                OrderModel *data = new OrderModel();
+                Order *data = new Order();
                 data->id = q.value(id).toInt();
                 data->numTable = q.value(numTable).toInt();
                 data->nbCouvert = q.value(nbCouvert).toInt();
@@ -187,11 +190,10 @@ namespace OrderCache {
                 int enteteId = q.record().indexOf("pos_note_entete_id");
 
                 while (q.next()) {
-                    OrderDetailModel *data = new OrderDetailModel();
+                    OrderDetail *data = new OrderDetail();
                     data->id = q.value(id).toInt();
                     data->prestationId = q.value(prestationId).toInt();
                     data->prestationLibelle = "";
-                    data->prix = 0.00f;
                     data->qte = q.value(qte).toInt();
                     data->isVAE = false;
                     data->isOffert = false;
@@ -210,12 +212,12 @@ namespace OrderCache {
         return list;
     }
 
-    static int persist(const OrderModel &data)
+    static int persist(const Order &data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
-        int headerId = Constant::UNDEFINED_INT;
-        QString sql = data.id == Constant::UNDEFINED_INT ?
+        int headerId = constant::UNDEFINED_INT;
+        QString sql = data.id == constant::UNDEFINED_INT ?
                     "INSERT INTO t_pos_note_entete(date_note, num_table, nb_couvert, poste_uuid, service, pos_activite_id, mmc_user_id) "
                     "VALUES (:date_note, :num_table, :nb_couvert, :poste_uuid, :service, :pos_activite_id, :mmc_user_id)" :
                     "UPDATE t_pos_note_entete SET (id, date_note, num_table, nb_couvert, poste_uuid, service, pos_activite_id) "
@@ -223,7 +225,7 @@ namespace OrderCache {
         q.prepare(sql);
 
 
-        if (data.id != Constant::UNDEFINED_INT)
+        if (data.id != constant::UNDEFINED_INT)
             q.bindValue(":id", data.id);
         q.bindValue(":date_note", data.dateNote.toString("yyyy-MM-dd hh:mm:ss"));
         q.bindValue(":num_table", data.numTable);
@@ -243,7 +245,7 @@ namespace OrderCache {
                 q.bindValue(":date_note", data.dateNote.toString("yyyy-MM-dd hh:mm:ss"));
                 q.bindValue(":pos_prestation_id", orderDetail->prestationId);
                 q.bindValue(":pos_note_entete_id", headerId);
-                q.bindValue(":pos_prestation_prix", orderDetail->prix);
+                q.bindValue(":pos_prestation_prix", orderDetail->pu);
                 q.bindValue(":qte", orderDetail->qte);
                 q.bindValue(":qte_cde_marche", orderDetail->qte);
                 q.bindValue(":vente_type", "NORMAL");
@@ -262,12 +264,12 @@ namespace OrderCache {
         return headerId;
     }
 
-    static void persist(QList<OrderModel *> data)
+    static void persist(QList<Order *> data)
     {
         QSqlQuery q;
         q.prepare("DELETE FROM t_pos_note_entete");
         if (q.exec()) {
-            foreach(const OrderModel *item, data) {
+            foreach(const Order *item, data) {
                 persist(*item);
             }
         }

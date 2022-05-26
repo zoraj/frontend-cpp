@@ -8,8 +8,8 @@ SegmentationService::SegmentationService(const QString &apiKey, const QString &t
 
 void SegmentationService::fetchClientTypes()
 {
-    endpoint = Constant::WSEndpoint::CLIENT_TYPES;
-    HttpRequest req {fullPath(Constant::WS_CLIENT_TYPES),
+    endpoint = constant::WSEndpoint::CLIENT_TYPES;
+    HttpRequest req {fullPath(constant::WS_CLIENT_TYPES),
         "GET",
         nullptr,
         apiKey,
@@ -20,8 +20,8 @@ void SegmentationService::fetchClientTypes()
 
 void SegmentationService::fetchSegmentations()
 {
-    endpoint = Constant::WSEndpoint::SEGMENTATION;
-    HttpRequest req {fullPath(Constant::WS_SEGMENTATION),
+    endpoint = constant::WSEndpoint::SEGMENTATION;
+    HttpRequest req {fullPath(constant::WS_SEGMENTATION),
         "GET",
         nullptr,
         apiKey,
@@ -32,8 +32,8 @@ void SegmentationService::fetchSegmentations()
 
 void SegmentationService::fetchPrescripteurs()
 {
-    endpoint = Constant::WSEndpoint::PRESCRIPTEUR;
-    HttpRequest req {fullPath(Constant::WS_PRESCRIPTEUR),
+    endpoint = constant::WSEndpoint::PRESCRIPTEUR;
+    HttpRequest req {fullPath(constant::WS_PRESCRIPTEUR),
         "GET",
         nullptr,
         apiKey,
@@ -44,16 +44,16 @@ void SegmentationService::fetchPrescripteurs()
 
 
 
-void SegmentationService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void SegmentationService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     switch (endpoint) {
-        case Constant::WSEndpoint::CLIENT_TYPES:
+        case constant::WSEndpoint::CLIENT_TYPES:
             emit fetchClientTypesFinished(response, status);
             break;
-        case Constant::WSEndpoint::SEGMENTATION:
+        case constant::WSEndpoint::SEGMENTATION:
             emit fetchSegmentationsFinished(response, status);
             break;
-        case Constant::WSEndpoint::PRESCRIPTEUR:
+        case constant::WSEndpoint::PRESCRIPTEUR:
             emit fetchPrescripteursFinished(response, status);
             break;
     }

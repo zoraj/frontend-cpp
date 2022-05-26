@@ -16,7 +16,7 @@ QVariant TablePlanListModel::data(const QModelIndex &index, int role) const
     if (index.row() > list.size() -1)
         return QVariant();
 
-    TableModel item = list.at(index.row());
+    Table item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;
@@ -51,7 +51,7 @@ QHash<int, QByteArray> TablePlanListModel::roleNames() const
     return roles;
 }
 
-void TablePlanListModel::setList(QList<TableModel> list)
+void TablePlanListModel::setList(QList<Table> list)
 {
     this->list = list;
     beginResetModel();

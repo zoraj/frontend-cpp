@@ -4,12 +4,12 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "ActivityModel.h"
+#include "Activity.h"
 
-namespace Cache::Activity {
-    static QList<ActivityModel> getAll()
+namespace cache::activity {
+    static QList<Activity> getAll()
     {
-        QList<ActivityModel> list;
+        QList<Activity> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pos_activite ORDER BY code");
         if (q.exec()) {
@@ -22,7 +22,7 @@ namespace Cache::Activity {
             int gestionTable = q.record().indexOf("gestion_table");
             int gestionCouvert = q.record().indexOf("gestion_couvert");
             while (q.next()) {
-                ActivityModel data;
+                Activity data;
                 data.id = q.value(id).toInt();
                 data.code = q.value(code).toString();
                 data.libelle = q.value(libelle).toString();
@@ -39,7 +39,7 @@ namespace Cache::Activity {
         }
         return list;
     }
-    static void persist(const ActivityModel &data)
+    static void persist(const Activity &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_pos_activite(id, code, libelle, nombre_table, icone_img, gestion_serveur, gestion_table, gestion_couvert) "
@@ -58,13 +58,13 @@ namespace Cache::Activity {
         }
     }
 
-    static void persist(QList<ActivityModel> data)
+    static void persist(QList<Activity> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_pos_activite");
         if (q.exec()) {
-            foreach(const ActivityModel &item, data) {
+            foreach(const Activity &item, data) {
                 persist(item);
             }
         }

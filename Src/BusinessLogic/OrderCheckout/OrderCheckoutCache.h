@@ -4,12 +4,12 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include <QDebug>
-#include "OrderCheckoutModel.h"
+#include "OrderCheckout.h"
 
-namespace Cache::OrderCheckout {
-    static QList<OrderCheckoutModel *> getByOrderHeader(int headerId)
+namespace cache::order_checkout {
+    static QList<OrderCheckout *> getByOrderHeader(int headerId)
     {
-        QList<OrderCheckoutModel *> result;
+        QList<OrderCheckout *> result;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_pos_encaissement WHERE pos_note_entete_id = :headerId");
         q.bindValue(":headerId", headerId);
@@ -21,7 +21,7 @@ namespace Cache::OrderCheckout {
             int dateEncaissement = q.record().indexOf("date_encaissement");
             int montantTTC = q.record().indexOf("montant_ttc");
             while (q.next()) {
-                OrderCheckoutModel *checkout = new OrderCheckoutModel();
+                OrderCheckout *checkout = new OrderCheckout();
                 checkout->id = q.value(id).toInt();
                 checkout->noteEnteteId = q.value(posNoteEnteteId).toInt();
                 checkout->modeEncaissementId = q.value(modeEncaissementId).toInt();
@@ -35,7 +35,7 @@ namespace Cache::OrderCheckout {
 
     }
 
-    static void persist(OrderCheckoutModel *data)
+    static void persist(OrderCheckout *data)
     {
         QSqlQuery q;
         QString sql = "INSERT INTO t_pos_encaissement(pos_note_entete_id, mmc_mode_encaissement_id, mmc_user_id, montant_ttc, date_encaissement) "
@@ -59,10 +59,10 @@ namespace Cache::OrderCheckout {
         }
     }
 
-    static void persist(QList<OrderCheckoutModel *>data)
+    static void persist(QList<OrderCheckout *>data)
     {
         QSqlDatabase::database().transaction();
-        foreach(OrderCheckoutModel *item, data) {
+        foreach(OrderCheckout *item, data) {
             persist(item);
         }
         QSqlDatabase::database().commit();

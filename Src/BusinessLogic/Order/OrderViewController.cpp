@@ -6,11 +6,11 @@ void OrderViewController::loadData()
     qDebug() << "Today is:" << ApplicationManager::getInstance()->getAppContext()->currentDate;
 
     // Load Group products
-    auto groupProducts = Cache::PosGroupProduct::getAll();
+    auto groupProducts = cache::pos_group_product::getAll();
     groupProductListModel_->list = groupProducts;
 
     // Load products
-    auto products = Cache::PosProduct::getAll();
+    auto products = cache::pos_product::getAll();
     productListModel_->setList(products);
     productListProxyModel_->setSourceModel(productListModel_);
     productSearchListProxyModel_->setSourceModel(productListModel_);
@@ -24,20 +24,20 @@ void OrderViewController::loadData()
     orderDetailListModel_->setList(order_->orderDetail);
 
     // Load clients
-    auto clients = Cache::Client::getAll();
+    auto clients = cache::client::getAll();
     clientListModel_->list = clients;
     clientListProxyModel_->setFilterRole(Qt::UserRole + 2); // CODE_ROLE
 
     // Load TopUp
-    auto accompagniments = Cache::Accompaniment::getAll();
+    auto accompagniments = cache::accompaniment::getAll();
     accompanimentListModel_->list = accompagniments;
-    auto cookings = Cache::Cooking::getAll();
+    auto cookings = cache::cooking::getAll();
     cookingListModel_->list = cookings;
 }
 
-PosProductModel OrderViewController::getProductById(int productId)
+PosProduct OrderViewController::getProductById(int productId)
 {
-    QList<PosProductModel>::iterator product;
+    QList<PosProduct>::iterator product;
     auto list = productListModel_->getList();
     for (product = list.begin(); product != list.end(); ++product) {
         if (product->id == productId) {
@@ -52,7 +52,7 @@ PosProductModel OrderViewController::getProductById(int productId)
             return product;
         }
     }*/
-    return PosProductModel();
+    return PosProduct();
 }
 
 
@@ -78,13 +78,13 @@ void OrderViewController::recalculateTotal()
  */
 int OrderViewController::cacheOrder()
 {
-    return OrderCache::persist(*order_);
+    return cache::order::persist(*order_);
 }
 
 
 void OrderViewController::initNewOrder()
 {
-    order_->id = Constant::UNDEFINED_INT; // Important ! to know if it's a new order
+    order_->id = constant::UNDEFINED_INT; // Important ! to know if it's a new order
     QDateTime dateTime = QDateTime::currentDateTime();
     QDate currentDate = ApplicationManager::getInstance()->getAppContext()->currentDate;
     dateTime.setDate(currentDate);
@@ -103,7 +103,7 @@ void OrderViewController::initNewOrder()
 // Public methods
 OrderViewController::OrderViewController(QObject *parent) : BaseViewController(parent)
 {
-    order_ = new OrderModel();
+    order_ = new Order();
     groupProductListModel_ = new PosGroupProductListModel(this);
     productListModel_ = new PosProductListModel(this);
     cookingListModel_ = new CookingListModel(this);
@@ -121,7 +121,7 @@ OrderViewController::OrderViewController(QObject *parent) : BaseViewController(p
 void OrderViewController::openOrder(int orderId, int numTable)
 {
     order_->id = orderId;
-    if (orderId == Constant::UNDEFINED_INT) {// It means it's a new order
+    if (orderId == constant::UNDEFINED_INT) {// It means it's a new order
         QDateTime dateTime = QDateTime::currentDateTime();
         QDate currentDate = ApplicationManager::getInstance()->getAppContext()->currentDate;
         dateTime.setDate(currentDate);
@@ -135,7 +135,7 @@ void OrderViewController::openOrder(int orderId, int numTable)
     }
     else {
         // Dig into the cache if any order on this table
-        auto order = OrderCache::getById(orderId);
+        auto order = cache::order::getById(orderId);
         if (order) {
 
             order_->dateNote = order->dateNote;
@@ -171,7 +171,7 @@ void OrderViewController::viewDidUnload()
     productListProxyModel_ = nullptr;
 }
 
-void OrderViewController::setOrder(OrderModel *order)
+void OrderViewController::setOrder(Order *order)
 {
     // Order header
     order_->numTable = order->numTable;
@@ -185,7 +185,7 @@ void OrderViewController::setOrder(OrderModel *order)
 // UI Events
 void OrderViewController::resetOrder()
 {
-    order_->id = Constant::UNDEFINED_INT; // Important ! to know if it's a new order
+    order_->id = constant::UNDEFINED_INT; // Important ! to know if it's a new order
     order_->numTable = 0;
     order_->nbCouvert = 0;
     order_->orderDetail.clear();
@@ -219,7 +219,7 @@ void OrderViewController::productSelected(int productId, int qty)
     // Check first if product already added
     int i = 0;
     bool isProductExist = false;
-    foreach(OrderDetailModel *orderDetail, order_->orderDetail) {
+    foreach(OrderDetail *orderDetail, order_->orderDetail) {
         if (orderDetail->prestationId == productId) {
             order_->orderDetail.at(i)->qte += qty;
             isProductExist = true;
@@ -228,8 +228,8 @@ void OrderViewController::productSelected(int productId, int qty)
     }
 
     if (!isProductExist) {
-        PosProductModel product = getProductById(productId);
-        OrderDetailModel *orderDetail = new OrderDetailModel();
+        PosProduct product = getProductById(productId);
+        OrderDetail *orderDetail = new OrderDetail();
         orderDetail->setParent(this);
         orderDetail->qte = qty;
         orderDetail->prestationId = productId;
@@ -257,7 +257,7 @@ void OrderViewController::productSearchTextChanged(const QString &keyword)
 void OrderViewController::deleteOrderButtonClicked(int productId, int qty)
 {
     int i = 0;
-    foreach(OrderDetailModel *orderDetail, order_->orderDetail) {
+    foreach(OrderDetail *orderDetail, order_->orderDetail) {
         if (orderDetail->prestationId == productId) {
             int newQty = orderDetail->qte - qty;
             if (newQty > 0) {
@@ -275,7 +275,7 @@ void OrderViewController::deleteOrderButtonClicked(int productId, int qty)
 void OrderViewController::offertOrderButtonClicked(int productId, int qty)
 {
     int i = 0;
-    foreach(OrderDetailModel *orderDetail, order_->orderDetail) {
+    foreach(OrderDetail *orderDetail, order_->orderDetail) {
         if (orderDetail->prestationId == productId) {
             order_->orderDetail.at(i)->pu = 0;
         }

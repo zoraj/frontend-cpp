@@ -21,7 +21,7 @@ QVariant ActivityListModel::data(const QModelIndex &index, int role) const
     if (index.row() > list.size() -1)
         return QVariant();
 
-    ActivityModel item = list.at(index.row());
+    Activity item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;

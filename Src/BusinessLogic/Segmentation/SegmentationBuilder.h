@@ -2,21 +2,21 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "SegmentationModel.h"
+#include "Segmentation.h"
 
-namespace Builder::Segmentation {
-    static SegmentationModel create(const QJsonObject &json)
+namespace builder::segmentation {
+    static Segmentation create(const QJsonObject &json)
     {
-        SegmentationModel output;
+        Segmentation output;
         output.id = json["id"].toInt();
         output.code = json["code"].toString();
         output.libelle = json["libelle"].toString();
         return output;
     };
 
-    static QList<SegmentationModel> create(const QByteArray &input)
+    static QList<Segmentation> create(const QByteArray &input)
     {
-        QList<SegmentationModel> result;
+        QList<Segmentation> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -24,7 +24,7 @@ namespace Builder::Segmentation {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                SegmentationModel item = create(jsonObject);
+                Segmentation item = create(jsonObject);
                 result.append(item);
             }
         }

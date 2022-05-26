@@ -252,7 +252,7 @@ void HttpUtil::execute(HttpRequestInput *input)
         request.setRawHeader("x-api-key",tmp_byte);
     }
 
-    request.setRawHeader("X-Custom-User-Agent", "MMC");
+    request.setRawHeader("X-Custom-User-Agent", "MAT");
     request.setRawHeader("Content-Type", "application/json");
     request.setRawHeader("Content-Length", postDataSize);
 
@@ -265,6 +265,10 @@ void HttpUtil::execute(HttpRequestInput *input)
     }
     else if (input->httpMethod == "PUT") {
         manager->put(request, input->payload);
+    }
+    else if (input->httpMethod == "PATCH") {
+        manager->sendCustomRequest(request, "PATCH", input->payload);
+        QNetworkReply *sendCustomRequest(const QNetworkRequest &request, const QByteArray &verb, const QByteArray &data);
     }
     else if (input->httpMethod == "HEAD") {
         manager->head(request);
@@ -285,16 +289,16 @@ void HttpUtil::onManagerFinished(QNetworkReply *reply)
 
     switch (errorType) {
     case QNetworkReply::NoError:
-        httpStatusCode = Constant::HttpStatusCode::OK;
+        httpStatusCode = constant::HttpStatusCode::OK;
         break;
     case QNetworkReply::ContentNotFoundError:
-        httpStatusCode = Constant::HttpStatusCode::NotFound;
+        httpStatusCode = constant::HttpStatusCode::NotFound;
         break;
     case QNetworkReply::HostNotFoundError:
-        httpStatusCode = Constant::HttpStatusCode::HostNotFound;
+        httpStatusCode = constant::HttpStatusCode::HostNotFound;
         break;
     default:
-        httpStatusCode = Constant::HttpStatusCode::InternalServerError;
+        httpStatusCode = constant::HttpStatusCode::InternalServerError;
         break;
     }
 

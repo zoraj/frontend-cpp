@@ -5,12 +5,12 @@
 #include <QtSql/QSqlRecord>
 #include <QDebug>
 
-#include "CashingModeModel.h"
+#include "CashingMode.h"
 
-namespace Cache::CashingMode {
-    static QList<CashingModeModel> getAll()
+namespace cache::cashing_mode {
+    static QList<CashingMode> getAll()
     {
-        QList<CashingModeModel> list;
+        QList<CashingMode> list;
         QSqlQuery q;
         q.prepare("SELECT * FROM t_mmc_mode_encaissement ORDER BY libelle");
         if (q.exec()) {
@@ -19,7 +19,7 @@ namespace Cache::CashingMode {
             int libelle = q.record().indexOf("libelle");
             int nature = q.record().indexOf("nature");
             while (q.next()) {
-                CashingModeModel data;
+                CashingMode data;
                 data.id = q.value(id).toInt();
                 data.code = q.value(code).toString();
                 data.libelle = q.value(libelle).toString();
@@ -33,7 +33,7 @@ namespace Cache::CashingMode {
         return list;
     }
 
-    static void persist(const CashingModeModel &data)
+    static void persist(const CashingMode &data)
     {
         QSqlQuery q;
         q.prepare("INSERT INTO t_mmc_mode_encaissement(id, code, libelle, nature) "
@@ -48,13 +48,13 @@ namespace Cache::CashingMode {
         }
     }
 
-    static void persist(QList<CashingModeModel> data)
+    static void persist(QList<CashingMode> data)
     {
         QSqlDatabase::database().transaction();
         QSqlQuery q;
         q.prepare("DELETE FROM t_mmc_mode_encaissement");
         if (q.exec()) {
-            foreach(const CashingModeModel &item, data) {
+            foreach(const CashingMode &item, data) {
                 persist(item);
             }
         }

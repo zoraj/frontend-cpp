@@ -17,7 +17,7 @@ QVariant OrderCheckoutListModel::data(const QModelIndex &index, int role) const
     if (index.row() > list.size() -1)
         return QVariant();
 
-    OrderCheckoutModel *item = list.at(index.row());
+    OrderCheckout *item = list.at(index.row());
     switch (role) {
     case Qt::DisplayRole :
         break;
@@ -54,7 +54,7 @@ QHash<int, QByteArray> OrderCheckoutListModel::roleNames() const
     return roles;
 }
 
-void OrderCheckoutListModel::setList(const QList<OrderCheckoutModel *> list)
+void OrderCheckoutListModel::setList(const QList<OrderCheckout *> list)
 {
     beginResetModel();
     this->list = list;

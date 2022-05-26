@@ -13,7 +13,7 @@ public:
     void fetchRooms();
     void fetchAvailabilities(const QDate &start, const QDate &end);
 
-    void callback(Constant::WSEndpoint endpoint, const QByteArray& response, int status) override;
+    void callback(constant::WSEndpoint endpoint, const QByteArray& response, int status) override;
 signals:
     void fetchRoomCategoriesFinished(const QByteArray &, int);
     void fetchRoomTypesFinished(const QByteArray &, int);

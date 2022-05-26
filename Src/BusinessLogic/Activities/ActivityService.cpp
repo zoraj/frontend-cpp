@@ -8,8 +8,8 @@ ActivityService::ActivityService(const QString &apiKey, const QString &token): B
 
 void ActivityService::fetchActivities()
 {
-    endpoint = Constant::WSEndpoint::ACTIVITIES;
-    HttpRequest req {fullPath(Constant::WS_ACTIVITIES),
+    endpoint = constant::WSEndpoint::ACTIVITIES;
+    HttpRequest req {fullPath(constant::WS_ACTIVITIES),
         "GET",
         nullptr,
         apiKey,
@@ -19,10 +19,10 @@ void ActivityService::fetchActivities()
 }
 
 // Main callback methods
-void ActivityService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void ActivityService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     switch (endpoint) {
-        case Constant::WSEndpoint::ACTIVITIES:
+        case constant::WSEndpoint::ACTIVITIES:
             emit fetchActivitiesFinished(response, status);
             break;
     }

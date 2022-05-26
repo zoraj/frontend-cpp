@@ -7,8 +7,8 @@ RoomService::RoomService(const QString &apiKey, const QString &token): BaseServi
 
 void RoomService::fetchRoomCategories()
 {
-    endpoint = Constant::WSEndpoint::ROOM_CATEGORIES;
-    HttpRequest req {fullPath(Constant::WS_ROOM_CATEGORIES),
+    endpoint = constant::WSEndpoint::ROOM_CATEGORIES;
+    HttpRequest req {fullPath(constant::WS_ROOM_CATEGORIES),
         "GET",
         nullptr,
         apiKey,
@@ -19,8 +19,8 @@ void RoomService::fetchRoomCategories()
 
 void RoomService::fetchRoomTypes()
 {
-    endpoint = Constant::WSEndpoint::ROOM_TYPES;
-    HttpRequest req {fullPath(Constant::WS_ROOM_TYPES),
+    endpoint = constant::WSEndpoint::ROOM_TYPES;
+    HttpRequest req {fullPath(constant::WS_ROOM_TYPES),
         "GET",
         nullptr,
         apiKey,
@@ -31,8 +31,8 @@ void RoomService::fetchRoomTypes()
 
 void RoomService::fetchRooms()
 {
-    endpoint = Constant::WSEndpoint::ROOMS;
-    HttpRequest req {fullPath(Constant::WS_ROOMS),
+    endpoint = constant::WSEndpoint::ROOMS;
+    HttpRequest req {fullPath(constant::WS_ROOMS),
         "GET",
         nullptr,
         apiKey,
@@ -43,8 +43,8 @@ void RoomService::fetchRooms()
 
 void RoomService::fetchAvailabilities(const QDate &start, const QDate &end)
 {
-    endpoint = Constant::WSEndpoint::ROOM_AVAILABILITIES;
-    QString url = Constant::WS_ROOM_AVAILABILITIES.arg(start.toString("yyyy-MM-dd"), end.toString("yyyy-MM-dd"));
+    endpoint = constant::WSEndpoint::ROOM_AVAILABILITIES;
+    QString url = constant::WS_ROOM_AVAILABILITIES.arg(start.toString("yyyy-MM-dd"), end.toString("yyyy-MM-dd"));
     HttpRequest req {fullPath(url),
         "GET",
         nullptr,
@@ -55,19 +55,19 @@ void RoomService::fetchAvailabilities(const QDate &start, const QDate &end)
 }
 
 // Main callback methods
-void RoomService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void RoomService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     switch (endpoint) {
-        case Constant::WSEndpoint::ROOM_CATEGORIES:
+        case constant::WSEndpoint::ROOM_CATEGORIES:
             emit fetchRoomCategoriesFinished(response, status);
             break;
-        case Constant::WSEndpoint::ROOM_TYPES:
+        case constant::WSEndpoint::ROOM_TYPES:
             emit fetchRoomTypesFinished(response, status);
             break;
-        case Constant::WSEndpoint::ROOMS:
+        case constant::WSEndpoint::ROOMS:
             emit fetchRoomsFinished(response, status);
             break;
-        case Constant::WSEndpoint::ROOM_AVAILABILITIES:
+        case constant::WSEndpoint::ROOM_AVAILABILITIES:
             emit fetchAvailabilitiesFinished(response, status);
             break;
     }

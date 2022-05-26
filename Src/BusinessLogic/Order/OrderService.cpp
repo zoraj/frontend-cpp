@@ -5,7 +5,7 @@ OrderService::OrderService(const QString &apiKey, const QString &token): BaseSer
 
 }
 
-void OrderService::postOrder(OrderModel *order)
+void OrderService::postOrder(Order *order)
 {
     QJsonObject payload;
     payload.insert("numTable", order->numTable);
@@ -16,8 +16,8 @@ void OrderService::postOrder(OrderModel *order)
     payload.insert("posActiviteId", order->activiteId);
     payload.insert("etat", order->etat);
 
-    endpoint = Constant::WSEndpoint::ORDER_POST;
-    HttpRequest req {fullPath(Constant::WS_POS_ORDERS),
+    endpoint = constant::WSEndpoint::ORDER_POST;
+    HttpRequest req {fullPath(constant::WS_POS_ORDERS),
         "POST",
         &payload,
         apiKey,
@@ -28,8 +28,8 @@ void OrderService::postOrder(OrderModel *order)
 
 void OrderService::fetchOrders()
 {
-    endpoint = Constant::WSEndpoint::ORDER_GET;
-    HttpRequest req {fullPath(Constant::WS_POS_ORDERS),
+    endpoint = constant::WSEndpoint::ORDER_GET;
+    HttpRequest req {fullPath(constant::WS_POS_ORDERS),
         "GET",
         nullptr,
         apiKey,
@@ -40,9 +40,9 @@ void OrderService::fetchOrders()
 
 
 // Order Detail
-void OrderService::postOrderDetail(QList<OrderDetailModel *>orderDetails)
+void OrderService::postOrderDetail(QList<OrderDetail *>orderDetails)
 {
-    endpoint = Constant::WSEndpoint::ORDER_DETAIL_POST;
+    endpoint = constant::WSEndpoint::ORDER_DETAIL_POST;
 
     QJsonArray payloadArray;
     foreach(auto item, orderDetails) {
@@ -59,7 +59,7 @@ void OrderService::postOrderDetail(QList<OrderDetailModel *>orderDetails)
     }
 
 
-    HttpRequestForArray req {fullPath(Constant::WS_POS_ORDER_DETAILS),
+    HttpRequestForArray req {fullPath(constant::WS_POS_ORDER_DETAILS),
         "POST",
         &payloadArray,
         apiKey,
@@ -70,7 +70,7 @@ void OrderService::postOrderDetail(QList<OrderDetailModel *>orderDetails)
 /*
 void OrderService::postOrderCheckout(QList<OrderCheckoutModel *> orderCheckouts)
 {
-    endpoint = Constant::WSEndpoint::ORDER_CHECKOUT_POST;
+    endpoint = constant::WSEndpoint::ORDER_CHECKOUT_POST;
     QJsonArray payloadArray;
     foreach(auto item, orderCheckouts) {
         QJsonObject payload;
@@ -83,7 +83,7 @@ void OrderService::postOrderCheckout(QList<OrderCheckoutModel *> orderCheckouts)
     }
 
 
-    HttpRequestForArray req {fullPath(Constant::WS_POST_ORDER_CHECKOUT),
+    HttpRequestForArray req {fullPath(constant::WS_POST_ORDER_CHECKOUT),
         "POST",
         &payloadArray,
         apiKey,
@@ -93,15 +93,15 @@ void OrderService::postOrderCheckout(QList<OrderCheckoutModel *> orderCheckouts)
 }
 */
 // Main callback methods
-void OrderService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void OrderService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
-    if (endpoint == Constant::WSEndpoint::ORDER_GET)
+    if (endpoint == constant::WSEndpoint::ORDER_GET)
         emit fetchOrdersFinished(response, status);
-    if (endpoint == Constant::WSEndpoint::ORDER_POST)
+    if (endpoint == constant::WSEndpoint::ORDER_POST)
         emit postOrderFinished(response, status);
-    if (endpoint == Constant::WSEndpoint::ORDER_DETAIL_POST)
+    if (endpoint == constant::WSEndpoint::ORDER_DETAIL_POST)
         emit postOrderDetailFinished(response, status);
-    if (endpoint == Constant::WSEndpoint::ORDER_CHECKOUT_POST)
+    if (endpoint == constant::WSEndpoint::ORDER_CHECKOUT_POST)
         emit postOrderCheckoutFinished(response, status);
 
 }

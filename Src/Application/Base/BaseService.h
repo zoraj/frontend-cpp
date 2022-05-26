@@ -13,7 +13,7 @@ class BaseService : public QObject
 protected:
     QString apiKey;
     QString bearerToken;
-    Constant::WSEndpoint endpoint = Constant::WSEndpoint::UNKNOWN;
+    constant::WSEndpoint endpoint = constant::WSEndpoint::UNKNOWN;
 public:
     explicit BaseService(QObject *parent = nullptr);
     explicit BaseService(const QString &apiKey, const QString &token);
@@ -22,7 +22,7 @@ public:
     void executeRequest(const HttpRequest &request);
     void executeRequest(const HttpRequestForArray &request);
 
-    virtual void callback(Constant::WSEndpoint endpoint, const QByteArray &, int);
+    virtual void callback(constant::WSEndpoint endpoint, const QByteArray &, int);
 
 signals:
 

@@ -7,8 +7,8 @@ CashingModeService::CashingModeService(const QString &apiKey, const QString &tok
 
 void CashingModeService::fetchCashingMode()
 {
-    endpoint = Constant::WSEndpoint::CASHING_MODE;
-    HttpRequest req {fullPath(Constant::WS_CASHING_MODE),
+    endpoint = constant::WSEndpoint::CASHING_MODE;
+    HttpRequest req {fullPath(constant::WS_CASHING_MODE),
         "GET",
         nullptr,
         apiKey,
@@ -18,10 +18,10 @@ void CashingModeService::fetchCashingMode()
 }
 
 // Main callback methods
-void CashingModeService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void CashingModeService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     switch (endpoint) {
-        case Constant::WSEndpoint::CASHING_MODE:
+        case constant::WSEndpoint::CASHING_MODE:
             emit fetchCashingModeFinished(response, status);
             break;
     }

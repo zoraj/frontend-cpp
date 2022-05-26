@@ -3,21 +3,21 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "VatModel.h"
+#include "Vat.h"
 
-namespace Builder::Vat {
-    static VatModel create(const QJsonObject &json)
+namespace builder::vat {
+    static Vat create(const QJsonObject &json)
     {
-        VatModel output;
+        Vat output;
         output.id = json["id"].toInt();
         output.dateEffective = QDate::fromString(json["dateEffective"].toString(), "yyyy-MM-dd");
         output.valeur = json["valeur"].toInt();
         return output;
     };
 
-    static QList<VatModel> create(const QByteArray &input)
+    static QList<Vat> create(const QByteArray &input)
     {
-        QList<VatModel> result;
+        QList<Vat> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -25,7 +25,7 @@ namespace Builder::Vat {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                VatModel item = create(jsonObject);
+                Vat item = create(jsonObject);
                 result.append(item);
             }
         }

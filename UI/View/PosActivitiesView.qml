@@ -3,14 +3,16 @@ import QtQuick 2.15
 PosActivitiesViewForm {
 
     // UI Events
-    function openNoteButtonClicked(index) {
+    function openNoteButtonClicked(activityId) {
         gViewTitle = qsTr("OPEN_NOTES_LIST") // Liste des notes ouvertes
-        console.log(index)
         tablePlanGridView.visible = false
         openOrderListView.visible = true
+
+        _activitiesViewController.openNoteButton_Clicked(activityId)
     }
 
     function newNoteButtonClicked(activityId) {
+        _activitiesViewController.newNoteButton_Clicked(activityId)
         gMainStackView.push(null, "qrc:/UI/View/OrderView.qml", {"orderId": -1, "numTable": 0}) // -1 means it's a new order
     }
 
@@ -18,8 +20,15 @@ PosActivitiesViewForm {
 
     }
 
+    function tablePlanButtonClicked(activityId) {
+        tablePlanGridView.visible = true
+        openOrderListView.visible = false
+        gViewTitle = qsTr("TABLE_PLAN")
+        _activitiesViewController.tablePlanButton_Clicked(activityId)
+    }
+
     function showTableNote() {
-        tableNoteGridView.visible = true
+        tablePlanGridView.visible = true
         openOrderListView.visible = false
         gViewTitle = qsTr("TABLE_PLAN") // "Plan des tables"
     }

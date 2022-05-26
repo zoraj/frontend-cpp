@@ -3,7 +3,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include "Src/Application/Base/BaseService.h"
-#include "OrderModel.h"
+#include "Order.h"
 //#include "Models/OrderCheckoutModel.h"
 
 class OrderService : public BaseService
@@ -13,10 +13,10 @@ public:
     OrderService(const QString &apiKey, const QString &token);
 
     void fetchOrders();
-    void postOrder(OrderModel *order);
-    void postOrderDetail(QList<OrderDetailModel *>orderDetails);
+    void postOrder(Order *order);
+    void postOrderDetail(QList<OrderDetail *>orderDetails);
     //void postOrderCheckout(QList<OrderCheckoutModel *> orderCheckouts);
-    void callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
+    void callback(constant::WSEndpoint endpoint, const QByteArray &response, int status) override;
 signals:
     void fetchOrdersFinished(const QByteArray &response, int status);
     void postOrderFinished(const QByteArray &response, int status);

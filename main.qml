@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.15
 
 import "qrc:/UI/ListModel"
 import "qrc:/UI/Component"
+import "qrc:/UI/Dialog"
 
 ApplicationWindow {
     id: gMainWindow
@@ -17,6 +18,7 @@ ApplicationWindow {
     property string gUserName
     property  bool gShouldServiceChoicePOSVisible: false
     property string gViewTitle
+    property string gCurrentVisibleScreen
 
     title: qsTr("APP_TITLE")
 
@@ -79,7 +81,7 @@ ApplicationWindow {
                 Column {
                     anchors.horizontalCenter: parent.horizontalCenter
                     Image {
-                        source: "qrc:/Assets/Image/Pos/Drawer/cook.png"
+                        source: "qrc:/Assets/Image/Common/clerck-icon.png"
                         width: 150; height: 150
                         fillMode: Image.PreserveAspectFit
                         asynchronous: true
@@ -141,8 +143,8 @@ ApplicationWindow {
                     //anchors.verticalCenter: parent.verticalCenter
                     anchors.centerIn: parent
                     Image {
-                        source: "qrc:/Assets/Image/Pos/Drawer/logout.png"
-                        width: 50; height: 50
+                        source: "qrc:/Assets/Image/Common/logout-icon.png"
+                        width: 80; height: 80
                         fillMode: Image.PreserveAspectFit
                         asynchronous: true
                     }
@@ -162,7 +164,7 @@ ApplicationWindow {
             }
         }
     }
-    /* UI Action */
+    /* UI Action - Start */
     Action {
         id: navigationAction
         icon.name: gMainStackView.depth > 1 ? "back" : "drawer"
@@ -196,6 +198,15 @@ ApplicationWindow {
             servicePOSMenu.open()
         }
     }
+    Action {
+        id: optionResaBookingDetailAction
+        icon.name: "menu"
+        onTriggered: {
+            optionResaBookingDetailMenu.open()
+        }
+    }
+    /* UI Action - End */
+
     header: ToolBar {
         id: headerToolBar
         visible: gIsConnected
@@ -229,7 +240,8 @@ ApplicationWindow {
             ToolButton {
                 id: servicePOSTool
                 action: optionsPOSServiceAction
-                opacity: gShouldServiceChoicePOSVisible ? 1.0 : 0.0
+                opacity: 1.0 // gShouldServiceChoicePOSVisible ? 1.0 : 0.0
+                visible: false
                 Menu {
                     id: servicePOSMenu
                     x: parent.width - width
@@ -257,7 +269,7 @@ ApplicationWindow {
 
             ToolButton {
                 action: optionsRecepPlanningAction
-                visible: gModule === 1 && gFooterTabBar.currentIndex === 0 && gMainStackView.depth === 1
+                visible: false // gModule === 1 && gFooterTabBar.currentIndex === 0 && gMainStackView.depth === 1
                 Menu {
                     id: optionsRecepPlanningMenu
                     x: parent.width - width
@@ -301,7 +313,7 @@ ApplicationWindow {
             }
             ToolButton {
                 action: optionsResaPlanningAction
-                visible: gModule === 2 && gFooterTabBar.currentIndex === 0 && gMainStackView.depth === 1
+                visible: false // gModule === 2 && gFooterTabBar.currentIndex === 0 && gMainStackView.depth === 1
                 Menu {
                     id: optionsResaPlanningMenu
                     x: parent.width - width
@@ -333,6 +345,30 @@ ApplicationWindow {
                     }
                     Action {
                         text: "Planning / Segment"
+                        onTriggered: {
+                        }
+                    }
+                }
+            }
+            ToolButton {
+                action: optionResaBookingDetailAction
+                visible: gCurrentVisibleScreen === "SCREEN_BOOKING_DETAIL"
+                Menu {
+                    id: optionResaBookingDetailMenu
+                    x: parent.width - width
+                    transformOrigin: Menu.TopRight
+                    Action {
+                        text: "Doc. Résa"
+                        onTriggered: {
+                        }
+                    }
+                    Action {
+                        text: "Stock autres"
+                        onTriggered: {
+                        }
+                    }
+                    Action {
+                        text: "Supprimer"
                         onTriggered: {
                         }
                     }
@@ -384,13 +420,23 @@ ApplicationWindow {
 
     /* */
 
-    /* Global Toast for User notification - End */
+    /* Global Toast for User notification - Start */
     MatToast {
         id: gMainToast
         onAboutToHide: {
             //resetFocus()
         }
     }
-    /* Global Toast for User notification - Start */
+    /* Global Toast for User notification - End */
+
+    /* Global DateTimePicker - Start */
+    DatePickerDialog {
+        id: gDatepickerDialog
+    }
+    DatePickerBookingDialog {
+        id: gDatepickerBookingDialog
+    }
+
+    /* Global DateTimePicker - Start */
 
 }

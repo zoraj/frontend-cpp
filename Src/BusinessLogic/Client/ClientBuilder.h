@@ -3,12 +3,12 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "ClientModel.h"
+#include "Client.h"
 
-namespace Builder::Client {
-    static ClientModel create(const QJsonObject &json)
+namespace builder::client {
+    static Client create(const QJsonObject &json)
     {
-        ClientModel output;
+        Client output;
         output.id = json["id"].toInt();
         output.code = json["code"].toString();
         output.nom = json["nom"].toString();
@@ -22,9 +22,9 @@ namespace Builder::Client {
         return output;
     };
 
-    static QList<ClientModel> create(const QByteArray &input)
+    static QList<Client> create(const QByteArray &input)
     {
-        QList<ClientModel> result;
+        QList<Client> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -32,7 +32,7 @@ namespace Builder::Client {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                ClientModel item = create(jsonObject);
+                Client item = create(jsonObject);
                 result.append(item);
             }
         }

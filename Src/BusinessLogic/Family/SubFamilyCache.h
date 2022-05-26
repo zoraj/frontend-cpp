@@ -5,7 +5,7 @@
 #include <QDebug>
 #include "SubFamilyModel.h"
 
-namespace Cache::SubFamily {
+namespace cache::sub_family {
     static void persist(const SubFamilyModel &data)
     {
         QSqlQuery q;

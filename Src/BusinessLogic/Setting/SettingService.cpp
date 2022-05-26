@@ -7,8 +7,8 @@ SettingService::SettingService(const QString &apiKey, const QString &token): Bas
 
 void SettingService::fetchSettings()
 {
-    endpoint = Constant::WSEndpoint::SETTING;
-    HttpRequest req {fullPath(Constant::WS_SETTING),
+    endpoint = constant::WSEndpoint::SETTING;
+    HttpRequest req {fullPath(constant::WS_SETTING),
         "GET",
         nullptr,
         apiKey,
@@ -17,10 +17,10 @@ void SettingService::fetchSettings()
     executeRequest(req);
 }
 
-void SettingService::callback(Constant::WSEndpoint endpoint, const QByteArray &response, int status)
+void SettingService::callback(constant::WSEndpoint endpoint, const QByteArray &response, int status)
 {
     switch (endpoint) {
-        case Constant::WSEndpoint::SETTING:
+        case constant::WSEndpoint::SETTING:
             emit fetchSettingsFinished(response, status);
             break;
     }

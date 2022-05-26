@@ -3,22 +3,22 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QJsonArray>
-#include "SeasonModel.h"
+#include "Season.h"
 //#include "SubSeasonModel.h"
 
-namespace SeasonBuilder {
-    static SeasonModel create(const QJsonObject &json)
+namespace builder::season {
+    static Season create(const QJsonObject &json)
     {
-        SeasonModel season;
+        Season season;
         season.id = json["id"].toInt();
         season.reference = json["reference"].toString();
         season.libelle = json["libelle"].toString();
         return season;
     };
 
-    static QList<SeasonModel> create(const QByteArray &input)
+    static QList<Season> create(const QByteArray &input)
     {
-        QList<SeasonModel> result;
+        QList<Season> result;
         QJsonParseError error;
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(input, &error);
@@ -26,7 +26,7 @@ namespace SeasonBuilder {
             QJsonArray jsonArray = jsonDoc.array();
             foreach (const  QJsonValue &value, jsonArray) {
                 QJsonObject jsonObject = value.toObject();
-                SeasonModel item = create(jsonObject);
+                Season item = create(jsonObject);
                 result.append(item);
             }
         }

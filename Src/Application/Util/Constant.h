@@ -10,7 +10,7 @@
 
 #include <QString>
 
-namespace Constant {
+namespace constant {
 #ifdef QT_DEBUG
     static const QString WS_ROOT_URL = QStringLiteral("http://develop.local/api");
     static const QString WS_E_URL = QStringLiteral("http://develop.local/e/api"); // e for Establishment
@@ -30,7 +30,9 @@ namespace Constant {
 
     // Booking
     static const QString WS_BOOKING = QStringLiteral("/reservation");
-    static const QString WS_BOOKING_ROOM_REPARTITION = QStringLiteral("/reservation/ventillation/%1");
+    static const QString WS_BOOKING_LIST = QStringLiteral("/reservation/get-all");
+    static const QString WS_BOOKING_ROOM_REPARTITIONS = QStringLiteral("/reservation/ventilation");
+    static const QString WS_BOOKING_ROOM_REPARTITION = QStringLiteral("/reservation/ventilation/%1");
 
     // Stay
     static const QString WS_STAY = QStringLiteral("/stay");
@@ -97,8 +99,11 @@ namespace Constant {
         USERS = 0,
         SETTING,
         LOGIN,
+        BOOKING_GET,
         BOOKING_POST,
-        BOOKING_PUT,
+        BOOKING_PATCH,
+        BOOKING_ROOM_REPARTITIONS_GET,
+        BOOKING_ROOM_REPARTITIONS_POST,
         BOOKING_ROOM_REPARTITION_GET,
         STAY,
         SEASONS,
@@ -153,4 +158,6 @@ namespace Constant {
     static const int UNDEFINED_INT = -1;
 
     static const int SYNC_CLOUD_INTERVAL = 8000; // 2 secs
+
+    static const int BOOKING_PLANNING_DATE_INTERVAL = 14; // Do not change it, it must be 14 (V1, QML rendering hardcoded )
 }
