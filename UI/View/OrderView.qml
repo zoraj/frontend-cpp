@@ -1,11 +1,11 @@
 import QtQuick 2.15
 import "qrc:/UI/Dialog"
 import "qrc:/UI/Component"
-import cloud.multimicro.mmc.frontend 1.0
+import cloud.mat.frontend 1.0
 
 OrderViewForm {
-    property OrderModel order: OrderModel {}
-    property OrderDetailModel orderDetail: OrderDetailModel {}
+    property Order order: Order {}
+    property OrderDetail orderDetail: OrderDetail {}
     property int orderId: 0
     property int tableNum: 0
 

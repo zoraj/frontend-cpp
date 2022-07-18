@@ -86,7 +86,7 @@ Flickable {
                 id: nameText
                 title: "Nom"
                 width: 200
-                iconAction: "cardex-icon.png"
+                //iconAction: "cardex-icon.png"
             }
             MatTextField {
                 id: cardexText

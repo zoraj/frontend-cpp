@@ -63,4 +63,26 @@ Doxygen standard comment
 --------------------------------------------------------------
 Difference between Q_INVOKABLE and Public slots
 Usecase Q_INVOKABLE 
+Methods marked as Q_INVOKABLE are used for BaseViewController override methods
+eg.
+Q_INVOKABLE
+void viewDidLoad() override;
+Q_INVOKABLE
+void viewDidUnload() override;
+
+
 Usecase Slots
+Slots are used as UI event such as button clicked, combobox selected
+Naming convention eg.
+void validateButton_Clicked();
+
+
+------------------------------------------------------------------
+QML Background colour is grey
+QML User interaction component colour is white
+
+
+
+Coding convention
+class member
+int myMember_

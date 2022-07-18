@@ -6,11 +6,11 @@ import "qrc:/UI/Component"
 import "qrc:/UI/ViewCell"
 
 Flickable {
-    property alias newBookingButton: newBookingButton
+    //property alias newBookingButton: newBookingButton
     property alias roomsListView: roomsListView
     property alias dateListView: dateListView
 
-    Rectangle {
+    Rectangle { /* Search input rectangle */
         id: topRect
         x: P._MARGIN_CONTAINER; y: P._MARGIN_CONTAINER
         width: parent.width - P._MARGIN_CONTAINER * 2; height: P._ACTION_BUTTON_CONTAINER_HEIGHT
@@ -23,9 +23,10 @@ Flickable {
                 fillMode: Image.PreserveAspectFit
                 MouseArea {
                     anchors.fill: parent
+                    /*
                     onClicked: {
                        console.info("image clicked!")
-                    }
+                    }*/
                 }
             }
             MatDatePicker {
@@ -37,22 +38,24 @@ Flickable {
                 fillMode: Image.PreserveAspectFit
                 MouseArea {
                     anchors.fill: parent
+                    /*
                     onClicked: {
                        console.info("image clicked!")
-                    }
+                    }*/
                 }
             }
         }
     }
 
-    Rectangle {
+    Rectangle { /* Planning Rectangle */
         id: centerRect
         width: parent.width - P._MARGIN_CONTAINER * 2; height: parent.height - topRect.height - P._MARGIN_CONTAINER * 3
         anchors.top: topRect.bottom; anchors.topMargin: P._SPACE_COMPONENT; anchors.left: topRect.left
+        color: "transparent"
         Column {
-            ListView { /* Date */
+            ListView { /* Date Calendar */
                 id: dateListView
-                width: centerRect.width; height: 80
+                width: centerRect.width; height: 42
                 x: 180
                 orientation: Qt.Horizontal
                 clip: true
@@ -81,16 +84,19 @@ Flickable {
             ListView { /* Rooms */
                 id: roomsListView
                 width: centerRect.width; height: centerRect.height
-
+                spacing: 2
                 clip: true
                 delegate: BookingPlanningViewCell {
                     width: roomsListView.width; height: 40
-                    roomId: chambreId
+                    roomId: _id
                     roomNumber: numeroChambre
                     roomTypeLabel: typeChambreLibelle
-                    bookings: _bookingPlanningViewController.bookings_
                     currentDate: _bookingPlanningViewController.currentDate_
-                    bookingRoomRepartitions: _bookingPlanningViewController.bookingRoomRepartitions_
+                    // @disable-check M222
+                    bookings: _bookingPlanningViewController.getBookings(_bookingPlanningViewController.currentDate_, _id)
+
+                    //bookings: _bookingPlanningViewController.bookings_
+                    //bookingRoomRepartitions: _bookingPlanningViewController.bookingRoomRepartitions_
                 }
                     /*Column {
                     id: roomListColumn
@@ -126,11 +132,11 @@ Flickable {
             }
         }
     }
-
+    /*
     RoundButton {
         x: parent.width - 100; y: parent.height - 100
         //text: "\u2713" // Unicode Character 'CHECK MARK'
         text: "+"
         id: newBookingButton
-    }
+    }*/
 }

@@ -11,6 +11,7 @@ ApplicationWindow {
     width: 1024
     height: 768
     visible: true
+    /* g means global property */
     readonly property int gScreenWidth: width
     readonly property int gScreenHeight: height
     property bool gIsConnected: false
@@ -407,10 +408,78 @@ ApplicationWindow {
                     return resaTabBarListModel
                 }
             }
+            /*
             TabButton {
                 text: title
                 onClicked: {
                     gMainStackView.replace(null, source, StackView.Immediate)
+                }
+            }*/
+            /*
+            TabButton {
+                contentItem: Text {
+                    text: title
+                    opacity: 1.0
+                    color: "#C4C4C4"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+                onClicked: {
+                    gMainStackView.replace(null, source, StackView.Immediate)
+                }
+            }*/
+            /*
+            TabButton {
+                contentItem: Image {
+                    width: 20; height: 20
+                    fillMode: Image.PreserveAspectFit
+                    source: "qrc:/Assets/Image/Common/cardex-icon.png"
+                    //horizontalAlignment: Text.AlignHCenter
+                    //verticalAlignment: Text.AlignVCenter
+                    padding: {
+                        left: 0
+                        right: 0
+                        top: 0
+                        bottom: 0
+                    }
+                }
+                onClicked: {
+                    gMainStackView.replace(null, source, StackView.Immediate)
+                }
+            }*/
+            TabButton {
+                id: tabButton
+                contentItem: Column {
+                    spacing: 2
+                    Image {
+                        id: image
+                        //mipmap: true
+                        //antialiasing: true
+                        x: tabButton.width / 2 - image.width
+                        width: {
+                            title === "" ? 35 : 25
+                        }
+                        height: {
+                            title === "" ? 35 : 25
+                        }
+                        fillMode: Image.PreserveAspectFit
+                        source: iconPath
+                    }
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: title
+                        font.pixelSize: 9
+                    }
+                }
+                onClicked: {
+                    if (type === "push") {
+                        gMainStackView.push(null, source)
+
+                    }
+                    else {
+                        gMainStackView.replace(null, source, StackView.Immediate)
+                    }
                 }
             }
         }

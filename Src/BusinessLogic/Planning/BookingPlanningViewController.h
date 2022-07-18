@@ -18,7 +18,7 @@ class BookingPlanningViewController : public BaseViewController
     Q_PROPERTY(PlanningDateListModel *planningDateListModel_ MEMBER planningDateListModel_)
     Q_PROPERTY(QList<Booking *> bookings_ MEMBER bookings_ CONSTANT)
     Q_PROPERTY(QList<BookingRoom *> bookingRoomRepartitions_ MEMBER bookingRoomRepartitions_)
-    Q_PROPERTY(QDate currentDate_ MEMBER currentDate_)
+    Q_PROPERTY(QDate currentDate_ MEMBER currentDate_ CONSTANT)
 
     QDate currentDate_;
     QList<PlanningDate *> planningDates_; // This will store the date that will be displayed on planning, by default a 30 days planning
@@ -38,5 +38,8 @@ public:
     void viewDidUnload() override;
 signals:
     void viewDidLoadFinished();
+public slots:
+    QList<Booking *>getBookings(QDate fromArrival, int roomId); // Index is the current index of the listview
+    //QList<Booking *> getBookings(int roomId);
 };
 

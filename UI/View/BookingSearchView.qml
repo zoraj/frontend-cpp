@@ -1,6 +1,6 @@
 import QtQuick 2.15
 
-RecepPlanningViewForm {
+BookingSearchViewForm {
     ListModel {
         id: bookingListModel
         ListElement {name: "Amanda"; arrival: "2021-02-11"; departure: "2021-02-13"; room: "201"}
@@ -8,20 +8,15 @@ RecepPlanningViewForm {
         ListElement {name: "Elinah"; arrival: "2021-02-14"; departure: "2021-02-16"; room: "203"}
     }
 
-    ListModel {
-        id: roomListModel
+    Connections {
+
     }
 
-    ListModel {
-        id: dateListModel
+    function bookingSelected(index) {
+        gMainStackView.push(null, "qrc:/UI/View/BookingDetailView.qml")
     }
 
     Component.onCompleted: {
-        gModule = 1 // Checkin Module
+        gViewTitle = "Recherche réservation"
     }
-
-    /*
-    newNoteButton.onClicked: {
-        gMainStackView.push(null, "qrc:/Views/Recep/NoteDetailView.qml")
-    }*/
 }

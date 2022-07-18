@@ -125,5 +125,26 @@
         <file>Assets/Image/Common/arrow-right-icon.png</file>
         <file>Assets/Image/Common/logout-icon.png</file>
         <file>Assets/Image/Common/clerck-icon.png</file>
+        <file>Assets/Image/Common/calendar-icon2.png</file>
+        <file>Assets/Image/Common/189-189-max.png</file>
+        <file>Assets/Image/TabBar/tab-planning-booking-icon.png</file>
+        <file>Assets/Image/TabBar/tab-plus-icon.png</file>
+        <file>Assets/Image/TabBar/tab-search-icon.png</file>
+        <file>Assets/Image/TabBar/tab-bell-icon.png</file>
+        <file>Assets/Image/TabBar/tab-folder-checked-icon.png</file>
+        <file>UI/View/BookingSearchView.qml</file>
+        <file>UI/View/BookingSearchViewForm.ui.qml</file>
+        <file>Assets/Image/PMS/button-find-icon.png</file>
+        <file>Assets/Image/Common/textfield-reset-action-icon.png</file>
+        <file>UI/ViewCell/BookingSearchViewCell.qml</file>
+        <file>Assets/Image/Common/arrow-right-listview.png</file>
+        <file>UI/View/BookingPreaffectationView.qml</file>
+        <file>UI/View/BookingPreaffectationViewForm.ui.qml</file>
+        <file>UI/View/NotificationView.qml</file>
+        <file>UI/View/NotificationViewForm.ui.qml</file>
+        <file>Assets/Image/TabBar/tab-plus-icon1.png</file>
+        <file>Assets/Image/TabBar/tab-search-icon1.png</file>
+        <file>Assets/Image/TabBar/tab-search-icon2.png</file>
+        <file>UI/Script/Date.js</file>
     </qresource>
 </RCC>

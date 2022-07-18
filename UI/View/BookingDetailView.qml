@@ -3,7 +3,7 @@ import QtQml 2.15
 import "qrc:/UI/Script/Countries.js" as CountryJS
 import "qrc:/UI/Dialog"
 
-import cloud.multimicro.mmc.frontend 1.0
+import cloud.mat.frontend 1.0
 
 BookingDetailViewForm {
     property Booking booking: Booking {}

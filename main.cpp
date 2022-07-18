@@ -53,10 +53,11 @@ void messageOutput(QtMsgType type, const QMessageLogContext &context, const QStr
  */
 void registerQmlType()
 {
-    qmlRegisterType<Booking>("cloud.multimicro.mmc.frontend", 1, 0, "Booking");
+    qmlRegisterType<Booking>("cloud.mat.frontend", 1, 0, "Booking");
     //qmlRegisterType<StayModel>("cloud.multimicro.mmc.frontend", 1, 0, "StayModel");
-    qmlRegisterType<Order>("cloud.multimicro.mmc.frontend", 1, 0, "OrderModel");
-    qmlRegisterType<OrderDetail>("cloud.multimicro.mmc.frontend", 1, 0, "OrderDetailModel");
+    qmlRegisterType<Order>("cloud.mat.frontend", 1, 0, "Order");
+    qmlRegisterType<OrderDetail>("cloud.mat.frontend", 1, 0, "OrderDetail");
+    qmlRegisterType<BookingRoom>("cloud.mat.frontend", 1, 0, "BookingRoom");
 }
 
 int main(int argc, char *argv[])

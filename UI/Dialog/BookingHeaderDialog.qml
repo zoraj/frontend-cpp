@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import "qrc:/."
 import "qrc:/UI/Component"
 
-import cloud.multimicro.mmc.frontend 1.0
+import cloud.mat.frontend 1.0
 
 Dialog {
     id: dialog

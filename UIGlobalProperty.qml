@@ -24,4 +24,6 @@ QtObject {
     readonly property color _DIALOG_TEXT_COLOR: "#a94442"
     readonly property real _DIALOG_OPACITY: 1.0
 
+    readonly property real _LISTVIEW_CELL_HEIGHT: 50
+
 }

@@ -11,8 +11,8 @@ namespace builder::booking_room {
         QPointer<BookingRoom> output = new BookingRoom;
         output->id = json["id"].toInt();
         output->reservationId = json["pmsReservationId"].toInt();
-        output->typeChambreId = json["typeChambreId"].toInt();
-        output->chambreId = json["pmsTypeChambreId"].toInt();
+        output->typeChambreId = json["pmsTypeChambreId"].toInt();
+        output->chambreId = json["pmsChambreId"].toInt();
         return output;
     }
     static QList<BookingRoom *> createList(const QByteArray &input)

@@ -5,7 +5,6 @@ import "qrc:/."
 import "qrc:/UI/Component"
 
 Flickable {
-    property alias newNoteButton: newNoteButton
     property alias roomsListView: roomsListView
     Rectangle {
         id: topRect
@@ -85,9 +84,10 @@ Flickable {
         }
     }
 
+    /*
     RoundButton {
         x: parent.width - 100; y: parent.height - 100
         text: "+"
         id: newNoteButton
-    }
+    }*/
 }
